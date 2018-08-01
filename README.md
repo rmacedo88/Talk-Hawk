@@ -65,3 +65,7 @@ $ ionic cordova run android
 ## Testando localmente no Browser
 
 Após instaladas as dependências, basta executar o comando:
+
+```sh
+$ ionic serve
+```
