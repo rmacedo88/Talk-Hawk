@@ -69,3 +69,71 @@ Após instaladas as dependências, basta executar o comando:
 ```sh
 $ ionic serve
 ```
+
+# Adicionando suporte ao Google Cloud Firebase
+> Porquê escolhemos o *Firebase* frente a serviços como o **AWS API Gateway (Amazon)**
+>: Serviços embutidos na plataforma como:
+>- Autenticação
+>- Banco de dados em tempo real (realtime database)
+>- Reporte de erros (Crash Reports)
+>- Etc...
+
+São necessários os seguintes passos:
+1. Criar uma API REST por meio de funções localmente em Node.js ou javascript (estamos usando Node.js)
+2. Publicar as funções no Firebase
+3. Acessar por meio de algum cliente REST
+
+#### Instalando
+
+```sh
+$ sudo npm install -g firebase-tools
+```
+
+#### Efetuando login
+
+> É necessário criar uma conta na plataforma em (https://firebase.google.com/)
+
+Ainda dentro do diretório raiz do projeto, executar o comando:
+
+```sh
+$ firebase login
+```
+
+Uma janela do browser padrão do seu sistema se abrirá e vc vai fazer login com a conta *Google* usada para criar a conta no *Google Cloud Firebase*. Após o login, vc recebe um feedback tanto no browser quanto no terminal.
+
+#### Configurando localmente o suporte ao Google Cloud Functions
+
+Basta digitar o seguinte comando no terminal:
+
+```sh
+$ firebase init functions
+```
+
+O Firebase vai solicitar algumas configurações:
+> Inicialização do diretório com a estrutura padrão do Cloud Functions
+1. Marque *Y* para continuar
+> Escolha do projeto padrão (caso não tenha nenhum, marque a opção *create a new project*). Você pode configurar múltiplos em uma mesma conta.
+2. Marque o projeto Talk Hawk dev
+> Em seguida, será solicitada a linguagem de programação a ser usada nas funções.
+3. Escolha *TypeScript*
+>Marque **N** para as opções subsequentes
+
+#### Instalando as Dependências NPM
+
+Após concluída a configuração básica, navegue até o diretório **Talk-Hawk/functions/** e digite o comando:
+
+```sh
+$ npm install
+```
+
+#### Efetuando o Deploy das funções no Firebase
+
+>Sempre que for necessário fazer um deploy, deve-se estar dentro do diretório **Talk-Hawk/functions/**
+
+Execute o comando:
+
+```sh
+$ firebase deploy --only functions
+```
+
+> Para testar localmente no **Google Chrome**, recomendamos instalar a extensão/plugin [**Allow-Control-Allow-Origin**](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en) para evitar problemas com [*CORS*](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
