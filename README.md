@@ -13,6 +13,13 @@ Talk Halk Ionic app
  - **Speech Recognition** (Utiliza o reconhecimento de voz em aparelhos suportados)
  - **Social Sharing**  (Compartilha conteúdo que pode ser customizado para as redes sociais e meios de compartilhamento presentes no aparelho do usuário)
  
+ ## Ferramentas
+ - [macOS High Sierra 10.13.6](https://itunes.apple.com/la/app/macos-high-sierra/id1246284741?mt=12&ls=1) Usado para construir em ambiente unix e garantir o build da aplicação nos demais ambientes.
+ - [Windows 10 Pro 1803](https://www.microsoft.com/pt-br/windows) Ambiente de construção do aplicativo
+ - [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) IDE utilizado em ambos os ambientes mencionados
+ - [Github](https://github.com/) Repositório do código-fonte
+
+
  ## Construindo localmente
 
  Requerimentos:
