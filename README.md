@@ -18,6 +18,7 @@ Talk Halk Ionic app
  - [Windows 10 Pro 1803](https://www.microsoft.com/pt-br/windows) Ambiente de construção do aplicativo
  - [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) IDE utilizado em ambos os ambientes mencionados
  - [Github](https://github.com/) Repositório do código-fonte
+ - [PostMan](https://www.getpostman.com/apps) Teste dos endpoints da API rest consumida pelo aplicativo
 
 
  ## Construindo localmente
