@@ -34,3 +34,14 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 functions/package-lock.json
+functions/lib/index.js
+functions/lib/index.js.map
+package-lock.json
+functions/lib/questions/hard.js
+functions/lib/questions/database.populate.questions.js
+functions/lib/questions/database.populate.questions.js.map
+functions/lib/questions/easy.js
+functions/lib/questions/easy.js.map
+functions/lib/questions/hard.js.map
+functions/lib/questions/list.js
+functions/lib/questions/list.js.map
