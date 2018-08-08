@@ -1,20 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
+
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { firebaseConfig } from './environment/app.environment.prod';
+import { MODULES, PROVIDERS, DIRECTIVES } from './app.resources';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    DIRECTIVES,
   ],
   imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp)
+    MODULES,
+    IonicModule.forRoot(MyApp),
+
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule.enablePersistence(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -22,9 +31,9 @@ import { HomePage } from '../pages/home/home';
     HomePage
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    PROVIDERS,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthProvider,
   ]
 })
-export class AppModule {}
+export class AppModule { }
