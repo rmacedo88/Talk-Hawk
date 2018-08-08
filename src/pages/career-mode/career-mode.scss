@@ -3,7 +3,7 @@ page-career-mode {
     @extend .btn;
     height: 70px !important;
     width: auto !important;
-    bottom: 40px !important;
+    bottom: 25px !important;
     margin: 0 auto !important;
     box-shadow: 1px 1px 15px $accent !important;
     z-index: 1000 !important;
@@ -25,7 +25,7 @@ page-career-mode {
     background: url('../../assets/imgs/primary-pattern.svg') !important; // bottom: 0 !important;
     background-repeat: no-repeat !important;
     background-position: bottom left !important;
-    box-shadow: 0px -1px 50px $accent !important;
+    box-shadow: 0px -1px 200px $accent !important;
   }
   section>ion-card {
     // box-shadow: .5px 1px 10px $primary-dark !important;
@@ -58,8 +58,7 @@ page-career-mode {
   ion-col {
     @extend .card-rounded;
     margin: 0 auto !important;
-    position: relative;
-    border: .5px solid $secondary-text !important;
+    position: relative; // border: .5px solid $secondary-text !important;
   }
   ion-card {
     @extend .card-rounded;
@@ -82,11 +81,5 @@ page-career-mode {
       text-align: center !important;
       white-space: inherit !important;
     }
-  }
-  img {
-    position: absolute;
-    bottom: 0;
-    vertical-align: bottom !important;
-    display: table-cell !important;
   }
 }
