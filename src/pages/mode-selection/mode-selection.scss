@@ -1,12 +1,20 @@
 page-mode-selection {
-  button {
-    @extend .btn; // flex-flow: column;
-    background: transparent !important;
-    border: unset !important;
-    box-shadow: unset !important;
+  $padding-borders: 6%; // ion-col>button {
+  //   background: transparent !important;
+  //   border: unset !important;
+  //   box-shadow: unset !important;
+  // }
+  ion-col>div {
+    text-align: center;
+    color: $divider; // margin: 0 auto !important;
+    margin-bottom: $padding-borders !important;
+    margin-top: $padding-borders !important;
+    font-size: 12.5pt !important;
+    font-weight: bold;
+    text-transform: uppercase;
   }
   ion-icon:before {
-    margin-left: 5px;
+    margin-left: 3%;
   }
   .control {
     border-radius: 15px !important;
@@ -17,25 +25,27 @@ page-mode-selection {
   ion-col>p {
     padding: 10px;
     color: $divider;
-    font-size: 14pt; // vertical-align: middle;
+    font-size: 13.5pt; // vertical-align: middle;
     text-align: left;
     margin: 0 auto;
   }
-  ion-row {
-    margin-bottom: 3% !important;
+  ion-row:first-child {
+    box-shadow: -.5px -.5px 2px $primary-dark !important;
   }
   ion-row {
-    padding: 10px !important;
+    max-height: 33% !important;
+    margin-bottom: 3% !important;
+    padding: 1% !important;
     @extend .card-rounded;
-    box-shadow: .5px 1px 10px $primary-dark !important; // box-shadow: 1px -1px 15px $primary-dark !important;
+    box-shadow: .5px -.5px 2px $primary-dark !important; // box-shadow: 1px -1px 15px $primary-dark !important;
   }
   img {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    width: 80%;
+    width: 75%;
     height: auto;
-    margin-bottom: 5%;
-    margin-top: 5%;
+    margin-bottom: $padding-borders;
+    margin-top: $padding-borders;
   }
 }
