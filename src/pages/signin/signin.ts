@@ -31,6 +31,7 @@ export class SigninPage {
     private app: App,
     private httpClientProvider: HttpClient
   ) {
+    // this.navCtrl.pop({ animate: false });
   }
 
   login() {
@@ -42,7 +43,7 @@ export class SigninPage {
       .then(result => { console.log(result) })
       .catch(err => { console.error(err) });
 
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(HomePage, {}, { animate: false });
   }
 
   ionViewDidLoad() {
@@ -50,11 +51,11 @@ export class SigninPage {
   }
 
   gotToSignup() {
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push(SignupPage, {}, { animate: false });
   }
 
   goToPasswordReset() {
-    this.navCtrl.push(PasswordResetPage);
+    this.navCtrl.push(PasswordResetPage, {}, { animate: false });
   }
 
 }
