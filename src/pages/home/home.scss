@@ -1,3 +1,96 @@
 page-home {
-
+  /*
+  * FONT
+  */
+  $font-color: $primary-color;
+  /*
+  * SCSS
+  */
+  button {
+    @extend .btn;
+  }
+  ion-card {
+    margin: 0 auto !important; // background: $secondary-text !important;
+    max-width: 400px !important; // box-shadow: 0px 5px 20px $accent !important;
+    box-shadow: 0px -1px 20px $primary !important;
+    @extend .background-pattern;
+  }
+  .the-header {
+    position: relative;
+    height: 30vh;
+    .header-text {
+      position: absolute;
+      z-index: 2;
+      top: 40px;
+      left: 15px; // font-family: $lato;
+    }
+    .header-text h1 {
+      font-weight: bold;
+      color: $divider;
+      font-size: 18pt;
+    }
+    .header-text p {
+      padding-left: 2rem;
+      font-weight: bold;
+      color: $divider;
+      font-size: 13pt;
+    }
+    .background {
+      // font-family: $lato;
+      height: 30vh;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% 170px, 0 115%); // background: $primary;
+      // @include background-image(linear-gradient(bottom, $accent 0%, $primary-dark 15%, $primary 70%));
+      img {
+        max-width: 22rem;
+        position: absolute;
+        right: 5px;
+        bottom: 30px;
+      }
+    }
+    button {
+      opacity: 1 !important;
+      height: 56px !important;
+      position: absolute;
+      bottom: -30px !important;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      @include background-image(linear-gradient(top, $accent 0%, $primary-dark 50%, $accent 51%, $primary 100%)); // background: $primary-dark;
+      border: 6px solid $primary-text !important;
+      box-shadow: 0px -2px 10px $accent !important;
+      z-index: 2;
+      color: $primary-color;
+      ion-icon {
+        font-size: 2.8rem;
+      }
+      &.activated {
+        background: $accent;
+      }
+      &.activated ion-icon {
+        transition: .1s linear;
+        color: $primary;
+      }
+    }
+  }
+  .the-content {
+    // font-family: $source-sans-pro;
+    padding-top: 40px !important;
+    clip-path: polygon(0 24px, 100% -20px, 100% 100%, 0 101%);
+    min-height: 50vh;
+    background: url('../../assets/imgs/primary-background-pattern.svg') !important; // bottom: 0 !important;
+    // background-repeat: no-repeat !important;
+    background-position: bottom right !important; // @include background-image(linear-gradient(top, $accent 0%, $primary-dark 50%, $primary 70%)); // background-color: $primary;
+    h2,
+    h5,
+    p {
+      font-size: 14pt;
+      color: $primary-color;
+      text-align: justify;
+    }
+  }
+  button {
+    border: .5px solid $divider !important;
+    box-shadow: 4px 6px 15px $primary-text !important;
+  }
 }

@@ -1,14 +1,36 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+  <ion-navbar transparent>
+    <ion-title class="align-center">Talk-Hawk</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding fullscreen>
+  <section margin-top margin-bottom class="card-leaf-shadow">
+    <ion-card class="card-rounded">
+      <div class="the-header">
+        <div class="header-text">
+          <h1>Introduction</h1>
+          <p>Introdução</p>
+        </div>
+        <div class="background">
+          <img src="../../assets/imgs/eagle.svg" />
+        </div>
+        <button ion-fab>
+          <ion-icon name="flash"></ion-icon>
+        </button>
+      </div>
+      <div class="the-content" padding>
+        <div padding>
+          <h2 ion-text>
+            Prezado jogador, bem vindo ao mundo Talk Hawk. Aqui você passará por vários desafios para provar que domina a língua inglesa
+            como ninguém!
+          </h2>
+          <h2 ion-text>
+            Avalie bem suas escolhas e boa sorte!
+          </h2>
+        </div>
+        <button ion-button block (click)="goToModeSelection()">começar</button>
+      </div>
+    </ion-card>
+  </section>
 </ion-content>
