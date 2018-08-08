@@ -22,15 +22,16 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 $colors: ( //
-primary-dark: #7B1FA2, //
-primary: #9C27B0, //
-primary-light: #E1BEE7, //
+accent: #6a1b9a, //
+primary-dark: #8e24aa, //
+primary: #ab47bc, //
+primary-light: #ce93d8, //
 primary-color: #FFFFFF, //
-accent: #54156F, //
-primary-text: #212121, //
+primary-text: #263238, //
 secondary-text: #37474f, //
-divider: #BDBDBD //
+divider: #cfd8dc //
 );
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
@@ -56,3 +57,17 @@ divider: #BDBDBD //
 // --------------------------------------------------
 @import "roboto";
 @import "noto-sans";
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+// CHANGE IONIC FONT SYSTEM
+@font-face {
+  font-family: 'Source Sans Pro', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=Source+Sans+Pro') format('woff2'), url('https://fonts.googleapis.com/css?family=Source+Sans+Pro') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  letter-spacing: .8px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
