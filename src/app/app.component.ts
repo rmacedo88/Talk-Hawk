@@ -34,7 +34,7 @@ export class MyApp {
     this.auth.angularFireAuthProvider.authState
       .subscribe((auth) => {
         // Se o objeto 'auth' for válido navega para a home, caso contrário navega para o login
-        (auth) ? this.nav.setRoot(HomePage) : this.nav.setRoot(SigninPage);
+        (auth) ? this.nav.setRoot(HomePage, {}, { animate: false }) : this.nav.setRoot(SigninPage, {}, { animate: false });
         // SigninPage
       });
 
