@@ -18,6 +18,7 @@ import { ChooseExamPage } from '../choose-exam/choose-exam';
 export class ModeSelectionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    // this.navCtrl.pop({ animate: false });
   }
 
   ionViewDidLoad() {
@@ -25,11 +26,11 @@ export class ModeSelectionPage {
   }
 
   goToChooseExam() {
-    this.navCtrl.push(ChooseExamPage);
+    this.navCtrl.push(ChooseExamPage, {}, { animate: false });
   }
 
   goToCareerMode() {
-    this.navCtrl.push(CareerModePage);
+    this.navCtrl.push(CareerModePage, {}, { animate: false });
   }
 
 }
