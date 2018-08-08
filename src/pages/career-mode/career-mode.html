@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar transparent>
+    <ion-title>career mode</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding fullscreen>
+  <section margin-top margin-bottom>
+
+    <ion-card>
+      <ion-card-header>Toque no microfone e diga qual cor você prefere!</ion-card-header>
+      <hr/>
+    </ion-card>
+
+    <ion-row>
+      <ion-col col-5 [ngClass]="animation" [ngStyle]="{'background-color': leftColor.code, 'box-shadow': '.5px 2px 10px ' + leftColor.code}">
+        <ion-card>
+          <!-- <img src="../../assets/imgs/blue-pattern.svg"> -->
+          <ion-card-header ion-text class="card-title">{{leftColor.text}}</ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col col-5 [ngClass]="animation" [ngStyle]="{'background-color': rightColor.code, 'box-shadow': '.5px 2px 10px ' + rightColor.code}">
+        <ion-card>
+          <!-- <img src="../../assets/imgs/red-pattern.svg"> -->
+          <ion-card-header ion-text class="card-title">{{rightColor.text}}</ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </section>
+</ion-content>
+
+<ion-footer>
+  <button ion-fab class="mic" (click)="openMic()">
+    <ion-icon name="mic"></ion-icon>
+  </button>
+</ion-footer>
