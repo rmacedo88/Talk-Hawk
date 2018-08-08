@@ -9,11 +9,11 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   constructor(public navCtrl: NavController) {
-
+    // this.navCtrl.pop({ animate: false });
   }
 
   goToModeSelection() {
-    this.navCtrl.setRoot(ModeSelectionPage);
+    this.navCtrl.push(ModeSelectionPage, {}, { animate: false });
   }
 
 }
