@@ -2,7 +2,7 @@ page-choose-exam {
   ion-card:first-child {
     min-height: 38vh !important;
     box-shadow: .5px 1px 10px $primary-dark !important;
-    margin-bottom: 30px !important;
+    margin-bottom: 5% !important;
     ion-card-header {
       color: $divider !important;
       font-size: 14pt;
@@ -22,10 +22,11 @@ page-choose-exam {
     }
     p {
       color: $divider;
-      margin: 20px !important;
+      margin: 10% !important;
       font-size: 13pt;
       text-align: justify;
       display: inline-block !important;
+      margin-top: 5% !important;
     }
   }
   ion-card {
@@ -33,16 +34,17 @@ page-choose-exam {
     position: relative;
     text-align: center;
     box-shadow: none !important;
-    height: 115px !important;
+    height: 100px !important;
     @extend .background-pattern;
     margin-bottom: 5% !important;
   }
   .card-title {
     position: absolute;
-    top: 1%;
+    top: -5% !important;
     font-size: 6.0em;
     width: 100%;
     font-weight: bold;
+    margin: 0 auto;
     color: $divider; // $shadow-color: $primary-text;
     // text-shadow: -1px -1px 0 $shadow-color, 1px -1px 0 $shadow-color, -1px 1px 0 $shadow-color, 1px 1px 0 $shadow-color;
   }
