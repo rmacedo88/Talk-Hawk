@@ -46,6 +46,10 @@ export class CareerModePage {
     console.log('ionViewDidLoad CareerModePage');
   }
 
+  toBack() {
+    this.navCtrl.pop({ animate: false });
+  }
+
   openMic() {
     this.leftColor = this.leftColors[Math.floor(Math.random() * this.leftColors.length)];
     this.rightColor = this.rightColors[Math.floor(Math.random() * this.rightColors.length)];

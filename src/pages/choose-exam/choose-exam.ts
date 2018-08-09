@@ -22,4 +22,8 @@ export class ChooseExamPage {
     console.log('ionViewDidLoad ChooseExamPage');
   }
 
+  toBack() {
+    this.navCtrl.pop({ animate: false });
+  }
+
 }

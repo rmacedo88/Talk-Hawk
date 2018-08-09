@@ -25,6 +25,10 @@ export class ModeSelectionPage {
     console.log('ionViewDidLoad ModeSelectionPage');
   }
 
+  toBack() {
+    this.navCtrl.pop({ animate: false });
+  }
+
   goToChooseExam() {
     this.navCtrl.push(ChooseExamPage, {}, { animate: false });
   }

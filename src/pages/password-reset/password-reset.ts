@@ -22,4 +22,8 @@ export class PasswordResetPage {
     console.log('ionViewDidLoad PasswordResetPage');
   }
 
+  toBack() {
+    this.navCtrl.pop({ animate: false });
+  }
+
 }
