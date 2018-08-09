@@ -1,6 +1,9 @@
 <ion-header>
 
-  <ion-navbar transparent>
+  <ion-navbar transparent hideBackButton="true">
+    <button (click)="toBack()" ion-button icon-only clear small>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
     <ion-title>career mode</ion-title>
   </ion-navbar>
 
