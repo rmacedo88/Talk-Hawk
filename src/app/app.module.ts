@@ -19,7 +19,11 @@ import { AuthProvider } from '../providers/auth/auth';
   ],
   imports: [
     MODULES,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      animate: false,
+      scrollAssist: false,
+      autoFocusAssist: false
+    }),
 
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
@@ -28,7 +32,7 @@ import { AuthProvider } from '../providers/auth/auth';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
   ],
   providers: [
     PROVIDERS,
