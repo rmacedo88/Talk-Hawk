@@ -3237,9 +3237,99 @@
   animation-iteration-count: infinite
 }
 
+.animated.delay-0-1s {
+  -webkit-animation-delay: .1s;
+  animation-delay: .1s
+}
+
+.animated.delay-0-2s {
+  -webkit-animation-delay: .2s;
+  animation-delay: .2s
+}
+
+.animated.delay-0-25s {
+  -webkit-animation-delay: .25s;
+  animation-delay: .25s
+}
+
+.animated.delay-0-3s {
+  -webkit-animation-delay: .3s;
+  animation-delay: .3s
+}
+
+.animated.delay-0-4s {
+  -webkit-animation-delay: .4s;
+  animation-delay: .4s
+}
+
+.animated.delay-0-45s {
+  -webkit-animation-delay: .45s;
+  animation-delay: .5s
+}
+
+.animated.delay-0-5s {
+  -webkit-animation-delay: .5s;
+  animation-delay: .5s
+}
+
+.animated.delay-0-55s {
+  -webkit-animation-delay: .55s;
+  animation-delay: .55s
+}
+
+.animated.delay-0-6s {
+  -webkit-animation-delay: .6s;
+  animation-delay: .6s
+}
+
+.animated.delay-0-65s {
+  -webkit-animation-delay: .65s;
+  animation-delay: .65s
+}
+
+.animated.delay-0-7s {
+  -webkit-animation-delay: .7s;
+  animation-delay: .7s
+}
+
+.animated.delay-0-75s {
+  -webkit-animation-delay: .75s;
+  animation-delay: .75s
+}
+
+.animated.delay-0-8s {
+  -webkit-animation-delay: .8s;
+  animation-delay: .8s
+}
+
+.animated.delay-0-85s {
+  -webkit-animation-delay: .85s;
+  animation-delay: .85s
+}
+
+.animated.delay-0-9s {
+  -webkit-animation-delay: .9s;
+  animation-delay: .9s
+}
+
+.animated.delay-0-95s {
+  -webkit-animation-delay: .95s;
+  animation-delay: .95s
+}
+
 .animated.delay-1s {
   -webkit-animation-delay: 1s;
   animation-delay: 1s
+}
+
+.animated.delay-1-25s {
+  -webkit-animation-delay: 1.25s;
+  animation-delay: 1.25s
+}
+
+.animated.delay-1-5s {
+  -webkit-animation-delay: 1.5s;
+  animation-delay: 1.5s
 }
 
 .animated.delay-2s {
@@ -3247,14 +3337,29 @@
   animation-delay: 2s
 }
 
+.animated.delay-2-5s {
+  -webkit-animation-delay: 2.5s;
+  animation-delay: 2.5s
+}
+
 .animated.delay-3s {
   -webkit-animation-delay: 3s;
   animation-delay: 3s
 }
 
+.animated.delay-3-5s {
+  -webkit-animation-delay: 3.5s;
+  animation-delay: 3.5s
+}
+
 .animated.delay-4s {
   -webkit-animation-delay: 4s;
   animation-delay: 4s
+}
+
+.animated.delay-4-5s {
+  -webkit-animation-delay: 4.5s;
+  animation-delay: 4.5s
 }
 
 .animated.delay-5s {
@@ -3270,6 +3375,11 @@
 .animated.faster {
   -webkit-animation-duration: .5s;
   animation-duration: .5s
+}
+
+.animated.fastest {
+  -webkit-animation-duration: .4s;
+  animation-duration: .4s
 }
 
 .animated.slow {
