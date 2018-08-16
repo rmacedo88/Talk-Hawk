@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
 
 /**
  * Generated class for the PasswordResetPage page.
@@ -15,15 +15,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PasswordResetPage {
 
+  @ViewChild(Navbar) navBar: Navbar;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PasswordResetPage');
-  }
-
-  toBack() {
-    this.navCtrl.pop({ animate: false });
+    this.navBar.backButtonClick = (e: UIEvent) => {
+      this.navCtrl.pop({ animate: false });
+    }
   }
 
 }
