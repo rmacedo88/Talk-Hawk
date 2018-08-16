@@ -1,3 +1,5 @@
+import { ComponentsModule } from './../../components/components.module';
+import { DirectivesModule } from './../../directives/directives.module';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ModeSelectionPage } from './mode-selection';
@@ -7,7 +9,9 @@ import { ModeSelectionPage } from './mode-selection';
     ModeSelectionPage,
   ],
   imports: [
+    DirectivesModule,
+    ComponentsModule,
     IonicPageModule.forChild(ModeSelectionPage),
   ],
 })
-export class ModeSelectionPageModule {}
+export class ModeSelectionPageModule { }
