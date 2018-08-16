@@ -1,5 +1,173 @@
 page-mode-selection {
-  $padding-borders: 6%; // ion-col>button {
+  $size: 10vh;
+  $out-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  $exam-accent: #01579b;
+  $exam-light: #0277bd;
+  $career-accent: #1b5e20;
+  $career-light: #2e7d32;
+  $vocabulary-accent: #004d40;
+  $vocabulary-light: #00695c;
+  /*
+   * Animations
+   */
+  // .title-animation {
+  //   @extend .animated;
+  //   @extend .fadeInDown;
+  //   @extend .fast;
+  // }
+  .backdrop-image-animation {
+    @extend .animated;
+    @extend .fadeInUp;
+    @extend .delay-1s;
+    @extend .faster;
+  }
+  .image-icon-animation {
+    @extend .animated;
+    @extend .fadeInLeft;
+    @extend .delay-0-6s;
+    @extend .faster;
+  }
+  .button-text-animation {
+    @extend .animated;
+    @extend .fadeIn;
+    @extend .delay-0-75s;
+    @extend .faster;
+  }
+  .card-group-animation {
+    @extend .animated;
+    @extend .fadeInUpBig;
+    @extend .faster;
+  }
+  .scroll-content {
+    // @extend .flex-container;
+    /* Disable scroll */
+    overflow-y: hidden !important;
+  }
+  ion-card {
+    @extend .card-group-animation;
+  }
+  section {
+    // @extend .row;
+    width: 90% !important;
+  }
+  .backdrop {
+    @extend .backdrop-image-animation;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-image: unset !important;
+    background-size: $size;
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+    background-position-y: 15px !important;
+  }
+  .card-button {
+    @extend .card-rounded;
+    position: relative;
+    box-shadow: $out-shadow;
+    margin-bottom: 4.5vh;
+  }
+  .backdrop-exam {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/exam.backdrop.svg');
+  }
+  .exam-card {
+    @extend .card-button;
+    background-color: $exam-light;
+  }
+  .exam-card>.img-container {
+    box-shadow: 2px 2px 50px $exam-accent;
+    background: $exam-light !important;
+  }
+  .backdrop-career {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/career.backdrop.svg');
+  }
+  .career-card {
+    @extend .card-button;
+    background-color: $career-light;
+  }
+  .career-card>.img-container {
+    box-shadow: 2px 2px 50px $career-accent;
+    background: $career-light !important;
+  }
+  .backdrop-vocabulary {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/vocabulary.backdrop.svg');
+  }
+  .vocabulary-card {
+    @extend .card-button;
+    background-color: $vocabulary-light;
+  }
+  .vocabulary-card>.img-container {
+    box-shadow: 2px 2px 50px $vocabulary-accent;
+    background: $vocabulary-light !important;
+  }
+  .img-container {
+    @extend .image-icon-animation;
+    height: $size;
+    width: $size;
+    display: block;
+  }
+  .card-img {
+    @extend .vertical-center;
+    position: relative !important;
+    margin: 0 auto !important;
+    width: 70%;
+    height: 70%;
+  }
+  .backdrop {
+    @extend .backdrop-image-animation;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-image: unset !important;
+    background-size: $size;
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+    background-position-y: 15px !important;
+  }
+  .backdrop-exam {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/exam.backdrop.svg');
+  }
+  .backdrop-career {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/career.backdrop.svg');
+  }
+  .backdrop-vocabulary {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/vocabulary.backdrop.svg');
+  }
+  .the-header {
+    @extend .button-text-animation;
+    width: calc(100% - 5vh) !important;
+    width: inherit;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .the-header h1 {
+    position: relative;
+    top: 50%;
+    left: 7vh;
+    transform: translateY(-50%);
+    font-weight: 500;
+    color: white;
+    opacity: .8;
+    font-size: 18.5pt;
+  }
+  .card-button>p {
+    display: block;
+    text-align: center;
+    width: auto;
+  }
+  $padding-borders: 5%; // ion-col>button {
   //   background: transparent !important;
   //   border: unset !important;
   //   box-shadow: unset !important;
@@ -9,7 +177,7 @@ page-mode-selection {
     color: $divider; // margin: 0 auto !important;
     margin-bottom: $padding-borders !important;
     margin-top: $padding-borders !important;
-    font-size: 12.5pt !important;
+    font-size: 12pt !important;
     font-weight: bold;
     text-transform: uppercase;
   }
@@ -17,10 +185,11 @@ page-mode-selection {
     margin-left: 3%;
   }
   .control {
-    border-radius: 15px !important;
-    background: url('../../assets/imgs/blue-pattern.svg');
-    background-repeat: no-repeat !important;
-    background-position: bottom right !important; // box-shadow: .5px .5px 5px $accent
+    z-index: 10 !important;
+    border-radius: 15px !important; // background-color: $cta-color !important;
+    // @extend .cta; // background: url('../../assets/imgs/blue-pattern.svg');
+    // background-repeat: no-repeat !important;
+    // background-position: bottom right !important; // box-shadow: .5px .5px 5px $accent
   }
   ion-col>p {
     padding: 10px;
@@ -33,19 +202,32 @@ page-mode-selection {
     box-shadow: -.5px -.5px 2px $primary-dark !important;
   }
   ion-row {
+    // @extend .background-pattern; // z-index: -1 !important;
     max-height: 33% !important;
     margin-bottom: 3% !important;
     padding: 1% !important;
     @extend .card-rounded;
+    background: transparent;
     box-shadow: .5px -.5px 2px $primary-dark !important; // box-shadow: 1px -1px 15px $primary-dark !important;
   }
-  img {
+  ion-col>img {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    width: 75%;
+    width: 80%;
     height: auto;
     margin-bottom: $padding-borders;
     margin-top: $padding-borders;
+  }
+  ion-col>img:first-child {
+    // width: 100% !important;
+    // height: 100% !important;
+    // z-index: -11 !important;
+    bottom: -5%; // position: absolute; // from ion-row
+    // max-height: 33% !important;
+    // margin-bottom: 3% !important;
+    // padding: 1% !important;
+    // margin: -1%;
+    @extend .card-rounded;
   }
 }
