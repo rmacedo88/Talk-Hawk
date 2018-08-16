@@ -1,36 +1,66 @@
 <ion-header>
-
-  <ion-navbar transparent hideBackButton="true">
-    <button (click)="toBack()" ion-button icon-only clear small>
-      <ion-icon name="arrow-back"></ion-icon>
-    </button>
-    <ion-title class="align-center">Selecionar modo</ion-title>
+  <ion-navbar transparent>
   </ion-navbar>
-
 </ion-header>
 
-<ion-content padding fullscreen>
-  <section>
-    <ion-grid no-padding>
+<ion-content fullscreen>
+
+  <h1>Selecione o modo de jogo</h1>
+
+  <section margin-top padding-top margin-bottom>
+
+
+    <ion-card tappable class="exam-card" (click)="goToChooseExam()">
+      <div class="backdrop-exam"></div>
+      <div class="img-container">
+        <img src="../../assets/imgs/exam.svg" class="card-img">
+      </div>
+      <div class="the-header">
+        <h1>Modo Exame</h1>
+      </div>
+    </ion-card>
+
+    <ion-card tappable class="career-card" (click)="goToCareerMode()">
+      <div class="backdrop-career"></div>
+      <div class="img-container">
+        <img src="../../assets/imgs/career.svg" class="card-img">
+      </div>
+      <div class="the-header">
+        <h1>Modo Carreira</h1>
+      </div>
+    </ion-card>
+
+    <ion-card tappable class="vocabulary-card">
+      <div class="backdrop-vocabulary"></div>
+      <div class="img-container">
+        <img src="../../assets/imgs/vocabulary.svg" class="card-img">
+      </div>
+      <div class="the-header">
+        <h1>Vocabulário</h1>
+      </div>
+    </ion-card>
+
+
+    <!-- <ion-grid no-padding>
       <ion-row>
         <ion-col>
           <p ion-text>Responda perguntas em dois níveis de dificuldade!</p>
         </ion-col>
-        <ion-col col-5 class="control" (click)="goToChooseExam()">
-          <img src="../../assets/imgs/exam.svg" />
+        <ion-col col-5 load [ref]="'blue-pattern'" class="control" tappable (click)="goToChooseExam()">
+          <img load [ref]="'exam'" />
           <div>
             Begin Exam
-            <!-- <ion-icon name="arrow-round-forward"></ion-icon> -->
+            <ion-icon name="arrow-round-forward"></ion-icon>
           </div>
         </ion-col>
       </ion-row>
 
       <ion-row>
-        <ion-col col-5 class="control" (click)="goToCareerMode()">
-          <img src="../../assets/imgs/career.svg" />
+        <ion-col col-5 load [ref]="'blue-pattern'" class="control" tappable (click)="goToCareerMode()">
+          <img load [ref]="'career'" />
           <div>
             Begin Career
-            <!-- <ion-icon name="arrow-round-forward"></ion-icon> -->
+            <ion-icon name="arrow-round-forward"></ion-icon>
           </div>
         </ion-col>
         <ion-col>
@@ -39,11 +69,11 @@
       </ion-row>
 
       <ion-row>
-        <ion-col col-5 class="control">
-          <img src="../../assets/imgs/vocabulary.svg" />
+        <ion-col col-5 load [ref]="'blue-pattern'" class="control" tappable>
+          <img load [ref]="'vocabulary'" />
           <div>
             Vocabulary
-            <!-- <ion-icon name="arrow-round-forward"></ion-icon> -->
+            <ion-icon name="arrow-round-forward"></ion-icon>
           </div>
         </ion-col>
         <ion-col>
@@ -51,7 +81,7 @@
           </p>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
 
   </section>
 </ion-content>
