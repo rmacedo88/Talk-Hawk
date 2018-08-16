@@ -1,6 +1,3 @@
-import { CareerModePage } from './../pages/career-mode/career-mode';
-import { ChooseExamPage } from './../pages/choose-exam/choose-exam';
-import { ModeSelectionPage } from './../pages/mode-selection/mode-selection';
 import { SigninPage } from './../pages/signin/signin';
 import { of } from 'rxjs/observable/of';
 import { Component, ViewChild } from '@angular/core';
@@ -10,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,7 +32,7 @@ export class MyApp {
     this.auth.angularFireAuthProvider.authState
       .subscribe((auth) => {
         // Se o objeto 'auth' for válido navega para a home, caso contrário navega para o login
-        (auth) ? this.nav.setRoot(HomePage, {}, { animate: false }) : this.nav.setRoot(SigninPage, {}, { animate: false });
+        (auth) ? this.nav.setRoot(HomePage, {}, { animate: false }) : this.nav.setRoot(LoginPage, {}, { animate: false });
         // SigninPage
       });
 
