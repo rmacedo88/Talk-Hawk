@@ -1,6 +1,7 @@
 $size: 10vh;
-$out-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+$external-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
 0 6px 6px rgba(0, 0, 0, 0.23);
+$shadow-divider: rgba(0, 0, 0, 0.25);
 .backdrop-image-animation {
   @extend .animated;
   @extend .fadeInUp;
@@ -49,7 +50,7 @@ ion-card {
 .card-button {
   @extend .card-rounded;
   position: relative;
-  box-shadow: $out-shadow;
+  box-shadow: $external-shadow;
   margin-bottom: 4.5vh;
 }
 
@@ -58,6 +59,10 @@ ion-card {
   height: $size;
   width: $size;
   display: block;
+}
+
+.shadow-icon {
+  box-shadow: 2px 2px 50px $shadow-divider;
 }
 
 .card-img {
