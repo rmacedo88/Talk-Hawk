@@ -1,0 +1,77 @@
+<ion-content padding>
+
+  <h1>Bem vindo ao Talk.HAWK</h1>
+
+  <ion-slides #slider direction="vertical">
+    <ion-slide padding>
+
+      <call-to-action [icon]="signinAction?.icon" [label]="signinAction?.label" (action)="goToSignin()"></call-to-action>
+
+      <call-to-action [icon]="signupAction?.icon" [label]="signupAction?.label" (action)="goToSignup()"></call-to-action>
+
+      <ion-slides text-slider autoplay="2000" loop="true">
+        <ion-slide text-slide>
+          <h3> Aprenda Inglês se divertindo! </h3>
+        </ion-slide>
+        <ion-slide text-slide>
+          <h3> Responda a desafios! </h3>
+        </ion-slide>
+        <ion-slide text-slide>
+          <h3> Conheça novas pronúncias! </h3>
+        </ion-slide>
+        <ion-slide text-slide>
+          <h3> Compartilhe tudo com seus amigos! </h3>
+        </ion-slide>
+      </ion-slides>
+
+    </ion-slide>
+    <ion-slide>
+      <ion-slides #innerSlider>
+        <ion-slide>
+          <div padding [ngClass]="{ 'goToTop': keyboard?.isOpen()}">
+            <ion-item>
+              <ion-input placeholder="Email" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="Senha" type="password"></ion-input>
+            </ion-item>
+            <button ion-button block tappable (click)="login()" color="light" class="login-button signin">Login</button>
+            <button ion-button clear tappable (click)="slideNext()" color="light">Perdeu sua senha?</button>
+          </div>
+          <button ion-button clear tappable (click)="goToSignup()">Criar uma conta
+            <ion-icon name="arrow-down"></ion-icon>
+          </button>
+        </ion-slide>
+        <ion-slide>
+          <div padding [ngClass]="{ 'goToTop': keyboard?.isOpen()}">
+            <ion-item>
+              <ion-input placeholder="Email" type="email"></ion-input>
+            </ion-item>
+            <button ion-button block tappable (click)="resetPassword()" color="light" class="login-button signin">Resetar senha</button>
+            <button ion-button clear tappable (click)="slidePrevious()" color="light">
+              <ion-icon name="arrow-back"></ion-icon> Voltar</button>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-slide>
+    <ion-slide>
+      <button ion-button clear tappable (click)="goToSignin()">
+        Fazer Login
+        <ion-icon name="arrow-up"></ion-icon>
+      </button>
+      <div padding [ngClass]="{ 'goToTop': keyboard?.isOpen()}">
+        <ion-item>
+          <ion-input placeholder="Nome" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Senha" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="margin-bottom">
+          <ion-input placeholder="Confirmar Senha" type="password"></ion-input>
+        </ion-item>
+        <button ion-button block tappable (click)="signup()" color="light" class="login-button signup">Criar conta e logar</button>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
