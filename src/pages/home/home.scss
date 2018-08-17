@@ -1,96 +1,197 @@
 page-home {
+  $shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+  /*
+   * Animations
+   */
+  .card-animation {
+    @extend .animated;
+    @extend .fadeInUpBig;
+    @extend .delay-0-4s;
+    @extend .fast;
+  }
+  .button-animation {
+    @extend .animated;
+    @extend .fadeInDown;
+    @extend .delay-1-25s;
+    @extend .faster;
+  } // .main-text-animation {
+  //   @extend .animated;
+  //   @extend .fadeIn;
+  //   @extend .delay-0-75s;
+  //   @extend .faster;
+  // }
+  // .image-animation {
+  //   @extend .animated;
+  //   @extend .fadeInUp;
+  //   @extend .delay-1-5s;
+  //   @extend .faster;
+  // }
+  .icon-animation {
+    @extend .animated;
+    @extend .fadeInLeft;
+    @extend .delay-1-5s;
+    @extend .slow;
+    @extend .infinite;
+  }
+  .scroll-content {
+    /* Disable scroll */
+    overflow-y: hidden !important;
+  }
+  section {
+    flex-direction: column 1important;
+  }
+  ion-card {
+    @extend .card-animation;
+    @extend .card-rounded; // @extend .background-pattern; // position: relative;
+    background-blend-mode: normal, multiply !important;
+    box-shadow: $shadow;
+    margin-bottom: 0 !important;
+    z-index: 1;
+    background: linear-gradient(135deg, rgba(144, 202, 249, 1) 0%, rgba(100, 181, 246, 1) 10%, rgba(66, 165, 245, 1) 25%, rgba(33, 150, 243, 1) 40%, rgba(30, 136, 229, 1) 55%, rgba(25, 118, 210, 1) 70%, rgba(21, 101, 192, 1) 85%, rgba(13, 71, 161, 1) 100%) !important; // background: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%) !important;
+    // background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%) !important;
+  }
+  ion-card>p {
+    // @extend .main-text-animation;
+    color: #fff !important;
+    margin: 0 auto !important;
+    max-width: 80%;
+    text-align: justify;
+    letter-spacing: initial !important;
+    font-size: 11pt !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+  }
+  ion-card-title {
+    // @extend .center;
+    // vertical-align: middle !important;
+    margin-top: 9vh !important; // margin-bottom: 2.5vh !important;
+    height: 9vh;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, .2);
+  }
+  ion-card-title>h1 {
+    position: relative;
+    top: 50% !important;
+    bottom: 50% !important;
+    transform: translateY(-50%) !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 900 !important; // opacity: .8;
+    font-size: 14pt;
+  }
+  ion-card>img {
+    // @extend .image-animation;
+    $img-size: 18vh;
+    width: $img-size;
+    height: $img-size;
+    bottom: 15 !important;
+    margin-top: 6vh !important;
+    margin: 0 auto; // opacity: .3;
+  }
+  button {
+    @extend .btn;
+    @extend .button-animation;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
+    max-width: 75%;
+    border-radius: 0 0 15px 15px !important;
+    border: unset !important; // z-index: -1 !important;
+    box-shadow: $shadow; // text-align: center !important;
+    background: linear-gradient(to right, rgba(189, 189, 189, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%) !important;
+  }
+  ion-icon {
+    @extend .icon-animation; // position: relative;
+    margin-left: 5%;
+  }
   /*
   * FONT
   */
-  $font-color: $primary-color;
-  /*
-  * SCSS
-  */
-  button {
-    @extend .btn;
-  }
-  ion-card {
-    margin: 0 auto !important; // background: $secondary-text !important;
-    max-width: 400px !important; // box-shadow: 0px 5px 20px $accent !important;
-    box-shadow: 0px -1px 20px $accent !important; // @extend .background-pattern;
-    background: transparent !important;
-  }
-  .the-header {
-    position: relative;
-    height: 30vh;
-    .header-text {
-      position: absolute;
-      z-index: 2;
-      top: 15px;
-      left: 15px; // font-family: $lato;
-    }
-    .header-text h1 {
-      font-weight: bold;
-      color: $divider;
-      font-size: 18pt;
-    }
-    .header-text p {
-      padding-left: 2rem;
-      font-weight: bold;
-      color: $divider;
-      font-size: 13pt;
-    }
-    .background {
-      // font-family: $lato;
-      height: 30vh;
-      position: relative;
-      clip-path: polygon(0 0, 100% 0, 100% 170px, 0 115%); // background: $primary;
-      // @include background-image(linear-gradient(bottom, $accent 0%, $primary-dark 15%, $primary 70%));
-      img {
-        max-width: 22rem;
-        position: absolute;
-        right: 5px;
-        bottom: 30px;
-      }
-    }
-    button {
-      opacity: 1 !important;
-      height: 56px !important;
-      position: absolute;
-      bottom: -30px !important;
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-      @include background-image(linear-gradient(top, $accent 0%, $primary-dark 50%, $accent 51%, $primary 100%)); // background: $primary-dark;
-      border: 6px solid $primary-text !important;
-      box-shadow: 0px -1px 10px $accent !important;
-      z-index: 2;
-      color: $primary-color;
-      ion-icon {
-        font-size: 2.8rem;
-      }
-      &.activated {
-        background: $accent;
-      }
-      &.activated ion-icon {
-        transition: .1s linear;
-        color: $primary;
-      }
-    }
-  }
-  .the-content {
-    // font-family: $source-sans-pro;
-    padding-top: 30px !important;
-    clip-path: polygon(0 24px, 100% -20px, 100% 100%, 0 101%);
-    min-height: 40vh;
-    background: url('../../assets/imgs/primary-background-pattern.svg') !important; // bottom: 0 !important;
-    // background-repeat: no-repeat !important;
-    background-position: bottom right !important; // @include background-image(linear-gradient(top, $accent 0%, $primary-dark 50%, $primary 70%)); // background-color: $primary;
-    h2,
-    h5,
-    p {
-      font-size: 14pt;
-      color: $primary-color;
-      text-align: justify;
-    }
-  }
-  button {
-    border: .5px solid $divider !important;
-    box-shadow: 4px 6px 15px $primary-text !important;
-  }
+  // $font-color: $primary-color;
+  // button {
+  //   @extend .btn;
+  // }
+  // ion-card {
+  //   margin: 0 auto !important; // background: $secondary-text !important;
+  //   max-width: 400px !important; // box-shadow: 0px 5px 20px $accent !important;
+  //   // box-shadow: 0px -1px 20px $accent !important; // @extend .background-pattern;
+  //   background: transparent !important; // @extend .background-pattern;
+  // }
+  // .the-header {
+  //   position: relative;
+  //   height: 30vh;
+  //   .header-text {
+  //     position: absolute;
+  //     z-index: 2;
+  //     top: 15px;
+  //     left: 15px; // font-family: $lato;
+  //   }
+  //   .header-text h1 {
+  //     font-weight: bold;
+  //     color: $divider;
+  //     font-size: 18pt;
+  //   }
+  //   .header-text p {
+  //     padding-left: 2rem;
+  //     font-weight: bold;
+  //     color: $divider;
+  //     font-size: 13pt;
+  //   }
+  //   .background {
+  //     // font-family: $lato;
+  //     height: 30vh;
+  //     position: relative;
+  //     clip-path: polygon(0 0, 100% 0, 100% 170px, 0 115%); // background: $primary;
+  //     @include background-image(linear-gradient(bottom, $accent 0%, $primary-dark 15%, $primary 70%));
+  //     img {
+  //       max-width: 22rem;
+  //       position: absolute;
+  //       right: 5px;
+  //       bottom: 30px;
+  //     }
+  //   }
+  //   button {
+  //     opacity: 1 !important;
+  //     height: 56px !important;
+  //     position: absolute;
+  //     bottom: -30px !important;
+  //     margin: 0 auto;
+  //     left: 0;
+  //     right: 0; // @include background(linear-gradient(top, $accent 0%, $primary-dark 50%, $accent 51%, $primary 100%)); // background: $primary-dark;
+  //     border: 6px solid $primary-text !important;
+  //     box-shadow: 0px -1px 10px $accent !important;
+  //     z-index: 2;
+  //     color: $primary-color;
+  //     ion-icon {
+  //       font-size: 2.8rem;
+  //     }
+  //     &.activated {
+  //       background: $accent;
+  //     }
+  //     &.activated ion-icon {
+  //       transition: .1s linear;
+  //       color: $primary;
+  //     }
+  //   }
+  // }
+  // .the-content {
+  //   // font-family: $source-sans-pro;
+  //   // @extend .background-pattern;
+  //   padding-top: 30px !important;
+  //   clip-path: polygon(0 24px, 100% -20px, 100% 100%, 0 101%);
+  //   min-height: 40vh; // background: url('../../assets/imgs/primary-background-pattern.svg') !important; // bottom: 0 !important;
+  //   // background-repeat: no-repeat !important;
+  //   // background-position: bottom right !important; // @include background-image(linear-gradient(top, $accent 0%, $primary-dark 50%, $primary 70%)); // background-color: $primary;
+  //   h2,
+  //   h5,
+  //   p {
+  //     font-size: 14pt;
+  //     color: $primary-color;
+  //     text-align: justify;
+  //   }
+  // }
+  // button {
+  //   border: .5px solid $divider !important; // box-shadow: 4px 6px 15px $primary-text !important;
+  // }
 }
