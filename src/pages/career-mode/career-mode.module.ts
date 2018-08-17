@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../../directives/directives.module';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CareerModePage } from './career-mode';
@@ -7,7 +8,8 @@ import { CareerModePage } from './career-mode';
     CareerModePage,
   ],
   imports: [
+    DirectivesModule,
     IonicPageModule.forChild(CareerModePage),
   ],
 })
-export class CareerModePageModule {}
+export class CareerModePageModule { }
