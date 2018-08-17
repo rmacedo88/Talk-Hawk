@@ -3,85 +3,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content padding fullscreen>
 
   <h1>Selecione o modo de jogo</h1>
 
-  <section margin-top padding-top margin-bottom>
+  <section padding>
 
-
-    <ion-card tappable class="exam-card" (click)="goToChooseExam()">
-      <div class="backdrop-exam"></div>
-      <div class="img-container">
-        <img src="../../assets/imgs/exam.svg" class="card-img">
-      </div>
-      <div class="the-header">
-        <h1>Modo Exame</h1>
-      </div>
-    </ion-card>
-
-    <ion-card tappable class="career-card" (click)="goToCareerMode()">
-      <div class="backdrop-career"></div>
-      <div class="img-container">
-        <img src="../../assets/imgs/career.svg" class="card-img">
-      </div>
-      <div class="the-header">
-        <h1>Modo Carreira</h1>
-      </div>
-    </ion-card>
-
-    <ion-card tappable class="vocabulary-card">
-      <div class="backdrop-vocabulary"></div>
-      <div class="img-container">
-        <img src="../../assets/imgs/vocabulary.svg" class="card-img">
-      </div>
-      <div class="the-header">
-        <h1>Vocabulário</h1>
-      </div>
-    </ion-card>
-
-
-    <!-- <ion-grid no-padding>
-      <ion-row>
-        <ion-col>
-          <p ion-text>Responda perguntas em dois níveis de dificuldade!</p>
-        </ion-col>
-        <ion-col col-5 load [ref]="'blue-pattern'" class="control" tappable (click)="goToChooseExam()">
-          <img load [ref]="'exam'" />
-          <div>
-            Begin Exam
-            <ion-icon name="arrow-round-forward"></ion-icon>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col col-5 load [ref]="'blue-pattern'" class="control" tappable (click)="goToCareerMode()">
-          <img load [ref]="'career'" />
-          <div>
-            Begin Career
-            <ion-icon name="arrow-round-forward"></ion-icon>
-          </div>
-        </ion-col>
-        <ion-col>
-          <p ion-text>No modo carreira você será desafiado a fazer coisas...</p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col col-5 load [ref]="'blue-pattern'" class="control" tappable>
-          <img load [ref]="'vocabulary'" />
-          <div>
-            Vocabulary
-            <ion-icon name="arrow-round-forward"></ion-icon>
-          </div>
-        </ion-col>
-        <ion-col>
-          <p ion-text>Incremente seu vocabulário, aprenda palavras novas e melhore sua pronúncia!
-          </p>
-        </ion-col>
-      </ion-row>
-    </ion-grid> -->
+    <call-to-action *ngFor="let item of actions" [icon]="item?.iconName" [label]="item?.label" (action)="goToDesiredLevel(item?.iconName)"></call-to-action>
 
   </section>
 </ion-content>
