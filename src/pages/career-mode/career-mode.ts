@@ -1,12 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the CareerModePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -14,6 +7,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'career-mode.html',
 })
 export class CareerModePage {
+
+  @ViewChild(Navbar) navBar: Navbar;
+  change: boolean = true;
+  titleAnswer: string = '';
+  leftResponse: string = 'first-answer-animation-enter';
+  rightResponse: string = 'second-answer-animation-enter';
 
   leftColors: Array<any> = [
     { text: 'Blue', code: '#2196f3', side: 'left' },
@@ -43,14 +42,28 @@ export class CareerModePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CareerModePage');
+    this.navBar.backButtonClick = (e: UIEvent) => {
+      this.navCtrl.pop({ animate: false });
+    }
   }
 
-  toBack() {
-    this.navCtrl.pop({ animate: false });
+  updateAnimations() {
+    this.leftResponse = 'first-answer-animation-close';
+    this.rightResponse = 'second-answer-animation-close';
+    this.titleAnswer = '';
+
+    setTimeout(() => {
+      this.leftResponse = 'first-answer-animation-enter';
+      this.rightResponse = 'second-answer-animation-enter';
+      this.titleAnswer = '';
+      console.log('cleaned');
+    }, 100);
   }
 
   openMic() {
+    this.updateAnimations();
+    console.log('mic opened');
+    this.change = (this.change) ? false : true;
     this.leftColor = this.leftColors[Math.floor(Math.random() * this.leftColors.length)];
     this.rightColor = this.rightColors[Math.floor(Math.random() * this.rightColors.length)];
     this.animation = this.animations[Math.floor(Math.random() * this.animations.length)]
