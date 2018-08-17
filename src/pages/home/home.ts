@@ -8,11 +8,14 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+
   constructor(public navCtrl: NavController) {
+  }
+  ionViewDidLoad() {
   }
 
   goToModeSelection() {
-    this.navCtrl.push(ModeSelectionPage, {}, { animate: false });
+    this.navCtrl.setRoot(ModeSelectionPage, {}, { animate: false });
   }
 
 }
