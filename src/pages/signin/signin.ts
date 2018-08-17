@@ -1,3 +1,4 @@
+import { ModeSelectionPage } from './../mode-selection/mode-selection';
 import { SignupPage } from './../signup/signup';
 import { map } from 'rxjs/operators/map';
 import { Component } from '@angular/core';
@@ -22,6 +23,9 @@ import { HomePage } from '../home/home';
 export class SigninPage {
 
   public backgroundImage: 'https://images.unsplash.com/photo-1475463606759-53a070b44126?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=40fde1f7480e45874560c2d8e577477c&auto=format&fit=crop&w=3161&q=80';
+
+  signinAction: {} = { icon: 'easy-question', label: 'Fazer Login' };
+  signupAction: {} = { icon: 'hard-question', label: 'Criar Conta' };
 
   constructor(
     public navCtrl: NavController,
