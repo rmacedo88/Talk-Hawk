@@ -1,68 +1,36 @@
 page-career-mode {
-  .mic {
-    @extend .btn;
-    height: 70px !important;
-    width: auto !important;
-    bottom: 25px !important;
-    margin: 0 auto !important;
-    box-shadow: 1px 1px 15px $accent !important;
-    z-index: 1000 !important;
-    border: .5px solid $divider !important;
-    box-shadow: 4px 6px 15px $primary-text !important;
-    ion-icon {
-      font-size: 4rem;
-      margin: 10px !important;
-    }
-    &.activated {
-      background: $accent;
-    }
-    &.activated ion-icon {
-      transition: .1s linear;
-      color: $primary;
-    }
+  .first-answer-animation-enter {
+    @extend .animated;
+    @extend .fadeInLeftBig;
+    @extend .delay-0-8s;
+    @extend .fast;
   }
-  ion-footer {
-    background: url('../../assets/imgs/primary-pattern.svg') !important; // bottom: 0 !important;
-    background-repeat: no-repeat !important;
-    background-position: bottom left !important;
-    box-shadow: 0px -1px 200px $accent !important;
+  .second-answer-animation-enter {
+    @extend .animated;
+    @extend .fadeInRightBig;
+    @extend .delay-0-4s;
+    @extend .fast;
   }
-  section>ion-card {
-    // box-shadow: .5px 1px 10px $primary-dark !important;
-    margin-bottom: 40% !important; // @extend .background-pattern; // margin-bottom: 5% !important;
-    ion-card-header {
-      color: $divider !important;
-      font-size: 14pt;
-      text-transform: uppercase;
-      text-align: center;
-      white-space: inherit !important;
-    }
-    hr {
-      width: 80%;
-      display: block;
-      height: .5px;
-      border: 0;
-      border-bottom: .5px solid $accent;
-      margin: 0 auto;
-      padding: 0;
-      box-shadow: 0px -1px 40px $accent !important;
-    }
-    p {
-      color: $divider !important;
-      margin: 20px !important;
-      font-size: 13pt !important;
-      text-align: justify;
-      display: inline-block !important;
-    }
+  .first-answer-animation-close {
+    @extend .animated;
+    @extend .fadeOutLeftBig;
+    @extend .fast;
+  }
+  .second-answer-animation-close {
+    @extend .animated;
+    @extend .fadeOutRightBig;
+    @extend .fast;
   }
   ion-col {
     @extend .card-rounded;
     margin: 0 auto !important;
-    position: relative; // border: .5px solid $secondary-text !important;
+    position: relative;
+    padding: 10px;
   }
   ion-card {
     @extend .card-rounded;
     margin: 0 auto !important;
+    border: .5px solid $secondary-text !important;
     position: relative; // text-align: center;
     box-shadow: none !important;
     width: 100% !important;
@@ -74,12 +42,128 @@ page-career-mode {
     height: 13vh !important;
     vertical-align: middle !important;
     ion-card-header {
-      position: relative !important;
-      color: $divider !important;
+      position: relative !important; // color: $divider !important;
       font-size: 2.3em !important;
       font-weight: bold !important; // text-transform: uppercase !important;
       text-align: center !important;
       white-space: inherit !important;
     }
+  }
+  section {
+    h1,
+    h2,
+    ion-row {
+      width: 100vw !important; // margin-top: 40% !important; // @extend .center;
+    }
+    h1,
+    h2 {
+      margin-left: 10%;
+      margin-right: 10%;
+      text-align: center;
+      color: rgba(2, 136, 209, .9);
+    }
+    h1 {
+      font-size: 18pt;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(2, 136, 209, .9);
+    }
+    h2 {
+      @extend .animated;
+      @extend .fadeInUpBig;
+      @extend .animated;
+      @extend .fast;
+      font-size: 11pt;
+      font-weight: 500;
+    }
+    ion-row {
+      margin-top: 10vh;
+      margin-bottom: 10vh;
+      ion-col {
+        // @extend .second-answer-animation-enter;
+      }
+      ion-col:first-child {
+        // @extend .first-answer-animation-enter;
+      }
+    }
+  }
+  /*
+   * Microfone
+   */
+  //.box
+  ion-footer>div {
+    @extend .animated;
+    @extend .fadeInUpBig;
+    @extend .animated;
+    @extend .delay-0-4s;
+    @extend .fast;
+    position: absolute;
+    top: -10vh;
+    left: 50%;
+  }
+  .object {
+    display: flex;
+    flex: 0 1 100%;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+  }
+  .outline {
+    $size: 60px;
+    width: $size;
+    height: $size;
+    border-radius: 50%; // border: 8px solid #B5A4A4;
+    animation: pulse 2s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+    position: absolute;
+  }
+  .button {
+    $size: 70px;
+    width: $size;
+    height: $size;
+    border-radius: 50%; // border: .5px solid #0277BD;
+    background: transparent; // #0277BD;
+    position: absolute;
+  }
+  .button:not(#circlein) {
+    border: 3px solid #3E94C8 !important;
+    box-shadow: 0px 0px 120px #3E94C8;
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0;
+      border: 1px solid #4983EA;
+    }
+    50% {
+      border: solid #4CB5F4;
+      opacity: 0.8;
+    }
+    90% {
+      transform: scale(2);
+      opacity: 0.2;
+      border: 3px solid #50CDDD;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+      border: 1px solid #4CF4D9;
+    }
+  }
+  #delayed {
+    animation-delay: 1.5s;
+  }
+  #circlein {
+    $size: 60px;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    background: transparent !important;
+    box-shadow: 0px -2px 15px #3E94C8;
+    position: absolute;
+  }
+  .mic-icon {
+    height: 45px;
+    margin: 6px;
   }
 }
