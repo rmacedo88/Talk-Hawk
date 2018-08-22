@@ -44,7 +44,7 @@ ion-card {
   background-size: $size;
   background-repeat: no-repeat;
   background-position-x: 90%;
-  background-position-y: 15px !important;
+  background-position-y: 15px;
 }
 
 .card-button {
@@ -86,6 +86,7 @@ ion-card {
 .the-header h1 {
   position: relative;
   top: 50%;
+  bottom: 50%;
   left: 7vh;
   transform: translateY(-50%);
   font-weight: 500;
