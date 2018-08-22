@@ -1,0 +1,52 @@
+page-choose-exam-level {
+  $accent-color: rgba(0, 0, 0, 0.25); // rgba(55, 71, 79, 0.4);
+  $easy-question-accent: $accent-color;
+  $easy-question-light: #0277bd;
+  $hard-question-accent: $accent-color;
+  $hard-question-light: #c62828;
+  $vocabulary-accent: #004d40;
+  $vocabulary-light: #00695c;
+  .scroll-content {
+    /* Disable scroll */
+    overflow-y: hidden !important;
+  }
+  section {
+    width: 90% !important;
+  }
+  .backdrop-easy-question {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/easy-question.backdrop.svg') !important;
+  }
+  .easy-question-card {
+    @extend .card-button;
+    background-color: $easy-question-light;
+  }
+  .easy-question-card>.img-container {
+    box-shadow: 2px 2px 50px $easy-question-accent;
+    background: $easy-question-light !important;
+  }
+  .backdrop-hard-question {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/hard-question.backdrop.svg') !important;
+  }
+  .hard-question-card {
+    @extend .card-button;
+    background-color: $hard-question-light;
+  }
+  .hard-question-card>.img-container {
+    box-shadow: 2px 2px 50px $hard-question-accent;
+    background: $hard-question-light !important;
+  }
+  .backdrop-vocabulary {
+    @extend .backdrop;
+    background-image: url('../assets/imgs/vocabulary.backdrop.svg');
+  }
+  .vocabulary-card {
+    @extend .card-button;
+    background-color: $vocabulary-light;
+  }
+  .vocabulary-card>.img-container {
+    box-shadow: 2px 2px 50px $vocabulary-accent;
+    background: $vocabulary-light !important;
+  }
+}
