@@ -1,10 +1,17 @@
 import { IonicModule } from 'ionic-angular';
 import { NgModule } from '@angular/core';
 import { CtaComponent } from './cta/cta';
+import { ExamQuestionComponent } from './exam-question/exam-question';
+
+const COMPONENTS = [
+  CtaComponent,
+  ExamQuestionComponent
+]
+
 @NgModule({
-  declarations: [CtaComponent],
-  entryComponents: [CtaComponent],
+  declarations: [COMPONENTS],
+  entryComponents: [COMPONENTS],
   imports: [IonicModule],
-  exports: [CtaComponent]
+  exports: [COMPONENTS]
 })
 export class ComponentsModule { }
