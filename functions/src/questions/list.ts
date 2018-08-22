@@ -16,6 +16,8 @@ export const list = ((db, req, res, params) => {
   db.collection('questions')
     // Funciona como uma cláusura where de um banco relacional, retorna os registros que possuam o atributo 'level' cujo valor seja igual a 'params.questionLevel'
     .where('level', '==', params.questionLevel)
+    // procura apenas por questões 'ativas'
+    .where('active', '==', true)
     // Ordena pelo atributo 'index' em ordem ascendente (do menor para o maior)
     .orderBy('index', 'asc')
     .get()
@@ -28,7 +30,7 @@ export const list = ((db, req, res, params) => {
         // Caso a query forneça resultados, acumula todas as questões recuperadas no array questions
         firestoreData.forEach(doc => {
           // Agrega somente os dados relevantes para devolver um JSON mais enxuto
-          const responseObj = { text: doc.data().text, options: doc.data().options };
+          const responseObj = { text: doc.data().text, options: doc.data().options, uid: doc.ref.id };
           questions.push(responseObj);
         });
 
