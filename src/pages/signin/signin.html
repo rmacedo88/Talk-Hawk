@@ -1,15 +1,60 @@
 <ion-content padding class="transparent-header">
 
-  <ion-row>
+  <h1>Talk.HAWK</h1>
+
+  <!-- <ion-row>
     <ion-col>
       <span>Bem vindo ao</span>
       <div>TALK HAWK</div>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
+
+  <section padding margin-top margin-bottom>
+
+    <ion-list no-lines>
+
+      <ion-item>
+        <ion-input placeholder="Email" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Senha" type="password"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <call-to-action [icon]="signinAction?.icon" [label]="signinAction?.label" (action)="goToDesiredLevel(signinAction?.icon)"></call-to-action>
+
+    <call-to-action [icon]="signupAction?.icon" [label]="signupAction?.label" (action)="goToDesiredLevel(signupAction?.icon)"></call-to-action>
+
+    <!-- <div padding>
+      <button block>Sign In</button>
+    </div> -->
+
+    <!-- <ion-card class="card-rounded">
+      <ion-list inset class="no-border">
+        <ion-item>
+          <ion-label floating color="primary">Email</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating color="primary">Senha</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card> -->
+
+    <button ion-button block load [ref]="'blue-pattern'" tappable (click)="login()">Login</button>
+
+    <button ion-button block load [ref]="'blue-pattern'" tappable (click)="gotToSignup()">Criar uma conta</button>
+
+    <button ion-button block load [ref]="'blue-pattern'" tappable (click)="goToPasswordReset()">Esqueci minha senha</button>
+
+  </section>
 
   <div padding>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
         <section margin-top margin-bottom class="card-leaf-shadow">
           <ion-card class="card-rounded">
@@ -26,26 +71,26 @@
           </ion-card>
         </section>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
-        <button ion-button block (click)="login()">Login</button>
+        <button ion-button block load [ref]="'blue-pattern'" tappable (click)="login()">Login</button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <div class="divider"></div>
+    <!-- <div class="divider"></div> -->
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
-        <button ion-button block (click)="gotToSignup()">Criar uma conta</button>
+        <button ion-button block load [ref]="'blue-pattern'" tappable (click)="gotToSignup()">Criar uma conta</button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
-        <button ion-button block (click)="goToPasswordReset()">Esqueci minha senha</button>
+        <button ion-button block load [ref]="'blue-pattern'" tappable (click)="goToPasswordReset()">Esqueci minha senha</button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </div>
 </ion-content>
