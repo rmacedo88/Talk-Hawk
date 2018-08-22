@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar transparent>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding fullscreen>
+
+  <h1>Modo {{ (examLevel === 'easy') ? 'Fácil' : 'Difícil' }}</h1>
+
+  <section>
+
+    <!-- <exam-question [level]="level"></exam-question> -->
+
+    <ion-card question-header>
+      <ion-card-header>{{currentQuestionObject?.title}}</ion-card-header>
+      <div>
+        <ion-segment>
+          <ion-segment-button>
+            {{ currentQuestion }}/10
+          </ion-segment-button>
+          <ion-segment-button>
+            0 pontos
+          </ion-segment-button>
+          <ion-segment-button>
+            +1
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </ion-card>
+
+    <call-to-action *ngFor="let item of currentQuestionObject?.options" path="exam-mode/" [extraParameters]="item?.uid" [icon]="item?.iconName"
+      [label]="item?.label" (action)="questionResponse(item?.iconName, item?.uid)">
+
+    </call-to-action>
+
+  </section>
+
+</ion-content>
