@@ -1,3 +1,4 @@
+import { ExamModePageModule } from './../pages/exam-mode/exam-mode.module';
 import { ChooseExamLevelPageModule } from './../pages/choose-exam-level/choose-exam-level.module';
 import { AsyncImgLoaderDirective } from './../directives/async-img-loader/async-img-loader';
 import { CareerModePageModule } from './../pages/career-mode/career-mode.module';
@@ -15,6 +16,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AuthProvider } from '../providers/auth/auth';
 import { DirectivesModule } from '../directives/directives.module';
 import { LoginPageModule } from '../pages/login/login.module';
+import { TalkHawkApiProvider } from '../providers/talk-hawk-api/talk-hawk-api';
 
 
 export const MODULES = [
@@ -28,6 +30,7 @@ export const MODULES = [
   ModeSelectionPageModule,
   ChooseExamLevelPageModule,
   CareerModePageModule,
+  ExamModePageModule,
 
   DirectivesModule
 ];
@@ -45,6 +48,7 @@ export const PROVIDERS = [
 
   // CUSTOM PROVIDERS
   AuthProvider,
+  TalkHawkApiProvider,
 
   // SERVICE WORKERS
 
