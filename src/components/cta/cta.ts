@@ -13,16 +13,17 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class CtaComponent {
 
   @Input() icon;
+  @Input() path;
   @Input() label;
+  @Input() extraParameters;
 
   @Output() action = new EventEmitter();
 
   constructor() {
-    console.log('Hello CtaComponent Component');
   }
 
-  callToAction($event) {
-    this.action.emit({ eventName: $event });
+  callToAction() {
+    this.action.emit({ eventName: this.extraParameters || this.icon });
   }
 
 }
