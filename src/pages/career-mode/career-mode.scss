@@ -22,32 +22,29 @@ page-career-mode {
     @extend .fast;
   }
   ion-col {
-    @extend .card-rounded;
+    // @extend .card-rounded;
     margin: 0 auto !important;
     position: relative;
     padding: 10px;
   }
-  ion-card {
-    @extend .card-rounded;
-    margin: 0 auto !important;
-    border: .5px solid $secondary-text !important;
-    position: relative; // text-align: center;
+  ion-col>div {
+    // @extend .card-rounded;
+    margin: 0 auto !important; // border: .5px solid $secondary-text !important;
+    position: relative;
+    text-align: center;
     box-shadow: none !important;
     width: 100% !important;
     height: auto !important;
     background-color: transparent !important;
   }
   ion-col,
-  ion-col>ion-card {
-    height: 13vh !important;
-    vertical-align: middle !important;
-    ion-card-header {
-      position: relative !important; // color: $divider !important;
-      font-size: 2.3em !important;
-      font-weight: bold !important; // text-transform: uppercase !important;
-      text-align: center !important;
-      white-space: inherit !important;
-    }
+  ion-col>div {
+    height: 13vh !important; // vertical-align: middle !important; // ion-card-header {
+    position: relative !important; // color: $divider !important;
+    font-size: 1.7em !important;
+    font-weight: bold !important; // text-transform: uppercase !important;
+    text-align: center !important;
+    white-space: inherit !important; // }
   }
   section {
     h1,
@@ -63,9 +60,8 @@ page-career-mode {
       color: rgba(2, 136, 209, .9);
     }
     h1 {
-      font-size: 18pt;
-      font-weight: 600;
-      border-bottom: 1px solid rgba(2, 136, 209, .9);
+      font-size: 16pt;
+      font-weight: 600; // border-bottom: 1px solid rgba(2, 136, 209, .9);
     }
     h2 {
       @extend .animated;
@@ -76,13 +72,13 @@ page-career-mode {
       font-weight: 500;
     }
     ion-row {
-      margin-top: 10vh;
+      margin-top: 3vh;
       margin-bottom: 10vh;
       ion-col {
-        // @extend .second-answer-animation-enter;
+        border-right: 1px solid blue; // @extend .second-answer-animation-enter;
       }
       ion-col:first-child {
-        // @extend .first-answer-animation-enter;
+        border-left: 1px solid blue; // @extend .first-answer-animation-enter;
       }
     }
   }
