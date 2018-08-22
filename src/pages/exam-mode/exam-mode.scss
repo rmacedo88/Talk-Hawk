@@ -1,0 +1,151 @@
+page-exam-mode {
+  $img-path: '../assets/imgs/exam-mode/';
+  $img-background-position-y: -30px;
+  $img-background-position-x: 80%;
+  $background-size: 10vh;
+  /*
+   * Page Modifications
+   */
+  .scroll-content {
+    /* Disable scroll */
+    overflow-y: hidden !important;
+  } // section>h1 {
+  //   @extend .animated;
+  //   @extend .fadeInDown;
+  //   @extend .faster;
+  //   text-align: center;
+  //   width: 90vw;
+  //   font-size: 16pt;
+  //   font-weight: 600;
+  //   color: rgba(2, 136, 209, .9);
+  //   margin-bottom: 5vh;
+  // }
+  /*
+   * CTA Component customizations
+   */
+  $a-color: #1565c0;
+  $b-color: #0277bd;
+  $c-color: #00838f;
+  $d-color: #00695c;
+  .card-img {
+    $size: 80%;
+    width: $size;
+    height: $size;
+  }
+  .img-container {
+    $size: 9vh;
+    height: $size;
+    width: $size;
+  }
+  .card-button {
+    width: 90vw !important;
+    margin-bottom: 3vh !important;
+  }
+  .the-header h1 {
+    left: 6vh;
+    font-size: 13pt;
+    top: 5vh !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-width: 65vw;
+    text-align: justify;
+  }
+  .backdrop {
+    background-size: $background-size !important;
+  }
+  /*
+   * QUESTION HEADER
+   */
+  ion-card[question-header] {
+    @extend .animated;
+    @extend .fadeInRight;
+    @extend .faster;
+    @extend .card-rounded;
+    margin-bottom: 3vh !important;
+    background-color: #0288d1 !important;
+  }
+  ion-card-header {
+    $padding: 10px;
+    white-space: normal;
+    text-align: justify;
+    padding-top: $padding !important;
+    padding-bottom: $padding !important;
+    color: white !important;
+  }
+  ion-segment {
+    margin: unset !important;
+  }
+  ion-segment-button {
+    font-size: 1.4rem !important;
+    font-weight: bold;
+    color: white !important;
+    background-color: #0288d1 !important;
+  }
+  ion-segment-button:nth-child(2) {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+  }
+  /*
+   * LETTER A
+   */
+  .backdrop-a {
+    @extend .backdrop;
+    background-position-y: $img-background-position-y !important;
+    background-image: url($img-path+'a.backdrop.svg') !important;
+  }
+  .a-card {
+    @extend .card-button;
+    background-color: $a-color;
+  }
+  .a-card>.img-container {
+    @extend .shadow-icon;
+    background: $a-color !important;
+  }
+  /*
+   * LETTER B
+   */
+  .backdrop-b {
+    @extend .backdrop;
+    background-image: url($img-path+'b.backdrop.svg') !important;
+  }
+  .b-card {
+    @extend .card-button;
+    background-color: $b-color;
+  }
+  .b-card>.img-container {
+    @extend .shadow-icon;
+    background: $b-color !important;
+  }
+  /*
+   * LETTER C
+   */
+  .backdrop-c {
+    @extend .backdrop;
+    background-image: url($img-path+'c.backdrop.svg') !important;
+  }
+  .c-card {
+    @extend .card-button;
+    background-color: $c-color;
+  }
+  .c-card>.img-container {
+    @extend .shadow-icon;
+    background: $c-color !important;
+  }
+  /*
+   * LETTER D
+   */
+  .backdrop-d {
+    @extend .backdrop;
+    background-position-y: $img-background-position-y !important;
+    background-image: url($img-path+'d.backdrop.svg') !important;
+  }
+  .d-card {
+    @extend .card-button;
+    background-color: $d-color;
+  }
+  .d-card>.img-container {
+    @extend .shadow-icon;
+    background: $d-color !important;
+  }
+}
