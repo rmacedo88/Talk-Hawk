@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar transparent>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding fullscreen>
+
+  <h1>Escolha a dificuldade do exame</h1>
+
+  <section padding>
+
+    <call-to-action *ngFor="let item of actions" [icon]="item?.iconName" [label]="item?.label" (action)="goToDesiredLevel(item?.iconName)"></call-to-action>
+
+  </section>
+
+</ion-content>
