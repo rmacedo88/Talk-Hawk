@@ -13,14 +13,20 @@
 
     <ion-row>
       <ion-col col-6 [attr.class]="leftResponse">
-        <ion-card>
+        <!-- <ion-card>
           <ion-card-header ion-text>{{leftColor.text}}</ion-card-header>
-        </ion-card>
+        </ion-card> -->
+        <div ion-text>
+          {{leftColor.text}}
+        </div>
       </ion-col>
       <ion-col col-6 [attr.class]="rightResponse">
-        <ion-card>
+        <div ion-text>
+          {{rightColor.text}}
+        </div>
+        <!-- <ion-card>
           <ion-card-header ion-text>{{rightColor.text}}</ion-card-header>
-        </ion-card>
+        </ion-card> -->
       </ion-col>
     </ion-row>
 
