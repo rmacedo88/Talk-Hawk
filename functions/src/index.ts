@@ -2,6 +2,7 @@
 import * as express from 'express';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import * as cors from 'cors';
 
 import * as questionsPopulate from './questions/database.populate.questions';
 import * as questions from './questions/list';
@@ -56,7 +57,17 @@ export const authenticate = ((req, res, next) => {
 
 
 // Configura o método de autenticação padrão para as requisições à api
-app.use(authenticate);
+// app.use(authenticate);
+
+// Habilita o uso do Cross-Origin Resource Sharing (CORS)
+app.use(cors({ origin: true }));
+
+
+
+// ============================================================================
+// API REST
+// ============================================================================
+
 
 
 // ============================================================================
@@ -67,8 +78,8 @@ app.use(authenticate);
  * Está comentado por razões de segurança.
  */
 app.put('/populateQuestionsCollection', (req, res) => {
-  // questionsPopulate.populateQuestionsCollection(db, req, res);
-  res.status(401).send('Você não tem autorização para chamar esse método.');
+  questionsPopulate.populateQuestionsCollection(db, req, res);
+  // res.status(401).send('Você não tem autorização para chamar esse método.');
 });
 
 
@@ -77,10 +88,14 @@ app.put('/populateQuestionsCollection', (req, res) => {
 // ============================================================================
 /**
  * Esse método aceita os endpoints a seguir:
- * /questionsList/easy : Recupera a lista de questões fáceis
- * /questionsList/hard : Recupera a lista de questões difíceis
+ * /questions/list/easy : Recupera a lista de questões fáceis
+ * /questions/list/hard : Recupera a lista de questões difíceis
  */
-app.get('/questionsList/:questionType', (req, res) => {
+app.get('/questions/list/:questionType', (req, res) => {
+
+  // const obrigatorio = () => { throw new Error('Parâmetro Obrigatório') };
+  // const add = (a: number = obrigatorio(), b: number = obrigatorio()) => a + b;
+  // add(1);
 
   // [Lê o valor do parâmetro de requisição definido na rota do método :questionType, são aceitos os valores 'easy' e 'hard']
   switch (req.params.questionType) {
@@ -99,10 +114,101 @@ app.get('/questionsList/:questionType', (req, res) => {
   }
 });
 
+
+// ============================================================================
+// Valida as questões respondidas pelo usuário
+// ============================================================================
+/**
+ * Esse método aceita os endpoints a seguir:
+ * /questions/response/easy : Valida a resposta de uma das questões fáceis
+ * /questions/response/hard : Valida a resposta de uma das questões difíceis
+ *
+ * Para ambos os casos, o body da requisição deve seguir o padrão a seguir:
+ *
+ * {
+ *   questionUID: string [Id da questão avaliada. Esse id é o mesmo do documento dentro da collection 'questions'
+ *   response: string [resposta do usuário - uma letra de 'a' a 'd']
+ * }
+ */
+app.post('/questions/response/:questionType', (req, res) => {
+
+  let responseObject: any;
+
+  // [Acessa a coleção de questões e recupera uma questão específica a partir do ID]
+  db.collection('questions')
+    .doc(req.body.questionUID)
+    .get()
+    .then(questionData => {
+
+      // [Checa se esse id de questão é válido]
+      if (questionData.exists) {
+
+        // [Arrow Function que determina se a questão foi respondida corretamente ou não. O retorno é booleano]
+        const isQuestionRight = () => (req.body.response === questionData.data().response);
+
+        // [Registra a resposta do usuário na collection 'user-question-answer']
+        db.collection('user-question-answer')
+          .add({
+            userUID: 1,
+            questionUID: questionData.ref.id,
+            examLevel: questionData.data().level,
+            // Se a questão estiver correta, atribui os pontos, caso contrário, atribui ZERO
+            pointsEarned: (isQuestionRight()) ? questionData.data().points : 0,
+            isRight: isQuestionRight(),
+            timestamp: new Date()
+          });
+
+        if (isQuestionRight()) {
+
+          // [Atualiza a conta do usuário com seus pontos ganhos]
+          db.collection('users')
+            .doc('1')
+            .get()
+            .then(userData => {
+
+              if (questionData.data().level === 'easy') {
+                userData.ref.update({
+                  easyExamPoints: (userData.data().easyExamPoints + questionData.data().points),
+                  lastUpdate: new Date()
+                });
+              }
+
+              if (questionData.data().level === 'hard') {
+                userData.ref.update({
+                  hardExamPoints: (userData.data().hardExamPoints + questionData.data().points),
+                  lastUpdate: new Date()
+                });
+              }
+
+            })
+            .catch(err => console.log('DEGUB: Erro ao atualizar usuário', err));
+        }
+
+        // [Adiciona os dados de retorno ao objeto enviado para o usuário]
+        responseObject = {
+          isCorrect: isQuestionRight(),
+          points: (isQuestionRight()) ? questionData.data().points : 0
+        };
+
+        // [Envia a resposta para o usuário]
+        res.send(responseObject);
+
+      } else {
+        // [Se a 'query' não retornou dados, devolve um erro para o usuário]
+        res.send({ error: 'O id informado não corresponde a uma questão válida.' });
+      }
+
+    })
+    .catch(err => {
+      console.log(err);
+      // [Retorna um erro de ambiente]
+      res.send(err);
+    });
+
+});
+
+
 /**
  * Exporta a API tendo o url base : https://us-central1-tawk-hawk-dev.cloudfunctions.net/talkhawk
- * Os métodos subsequentes terão os seguintes endereços:
- * [# listQuestions: https://us-central1-tawk-hawk-dev.cloudfunctions.net/talkhawk/listQuestions]
- * etc...
  */
 exports.talkhawk = functions.https.onRequest(app);
