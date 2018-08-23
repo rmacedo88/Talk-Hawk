@@ -2,6 +2,7 @@ import { ChooseExamLevelPage } from './../choose-exam-level/choose-exam-level';
 import { TalkHawkApiProvider } from './../../providers/talk-hawk-api/talk-hawk-api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { timer } from 'rxjs/observable/timer';
 
 @IonicPage()
 @Component({
@@ -11,6 +12,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ExamModePage {
 
   examLevel: string;
+  pointsEarned: number = 0;
 
   private _questionsRawData;
 
@@ -97,22 +99,25 @@ export class ExamModePage {
 
   async questionResponse(responseOption: string, id: string) {
 
+    // [Envia a resposta para avaliação]
+    const responseFeedback = await this.talkHawkApi
+      .post(`/questions/response/${this.navParams.get('level')}`,
+        {
+          questionUID: id,
+          response: responseOption
+        });
+
+    // [Recupera o feedback e incrementa a pontuação do usuário]
+    this.pointsEarned += (responseFeedback.points) ? responseFeedback.points : 0;
+
     if (this.currentQuestion === this.totalQuestions) {
-      this.navCtrl.setRoot(ChooseExamLevelPage);
+      timer(2000)
+        .subscribe(() => {
+          this.navCtrl.setRoot(ChooseExamLevelPage);
+        });
     } else {
       this.goToNextQuestion();
     }
-
-    // [Envia a resposta para avaliação]
-    // const responseFeedback = await this.talkHawkApi
-    //   .post(`/questions/response/${this.navParams.get('level')}`,
-    //     {
-    //       questionUID: id,
-    //       response: responseOption
-    //     });
-
-    // console.log('Avaliação da resposta da questão', responseFeedback);
-
 
   }
 
