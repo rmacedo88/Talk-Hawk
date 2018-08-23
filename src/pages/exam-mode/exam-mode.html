@@ -9,7 +9,7 @@
 
   <h1>Modo {{ (examLevel === 'easy') ? 'Fácil' : 'Difícil' }}</h1>
 
-  <section>
+  <section *ngIf="currentQuestionObject">
 
     <!-- <exam-question [level]="level"></exam-question> -->
 
@@ -21,10 +21,10 @@
             {{ currentQuestion }}/10
           </ion-segment-button>
           <ion-segment-button>
-            0 pontos
+            {{ pointsEarned }} pontos
           </ion-segment-button>
           <ion-segment-button>
-            +1
+            {{ (examLevel == 'easy') ? '+1' : '+2'}}
           </ion-segment-button>
         </ion-segment>
       </div>
