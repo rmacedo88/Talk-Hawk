@@ -1,6 +1,14 @@
 # Talk-Hawk
 Talk Halk Ionic app
 
+![Some printstreen](https://github.com/rmacedo88/Talk-Hawk/blob/master/printscreen/Screenshot_2018-08-23-14-06-23.png)
+![Some printstreen](https://github.com/rmacedo88/Talk-Hawk/blob/master/printscreen/Screenshot_2018-08-23-14-06-30.png)
+![Some printstreen](https://github.com/rmacedo88/Talk-Hawk/blob/master/printscreen/Screenshot_2018-08-23-14-06-34.png)
+![Some printstreen](https://github.com/rmacedo88/Talk-Hawk/blob/master/printscreen/Screenshot_2018-08-23-14-06-42.png)
+![Some printstreen](https://github.com/rmacedo88/Talk-Hawk/blob/master/printscreen/Screenshot_2018-08-23-14-06-56.png)
+![Some printstreen](https://github.com/rmacedo88/Talk-Hawk/blob/master/printscreen/Screenshot_2018-08-23-14-07-01.png)
+![Some printstreen](https://github.com/rmacedo88/Talk-Hawk/blob/master/printscreen/Screenshot_2018-08-23-14-07-21.png)
+
 ## Tecnologias
  - **Ionic 3** (Framework de integração entre o Apache Cordova ao Angular 5)
  - **Angular 5** (Framework multiplataforma baseado em Typescript)
