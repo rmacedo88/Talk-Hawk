@@ -1,4 +1,3 @@
-import { SigninPage } from './../pages/signin/signin';
 import { of } from 'rxjs/observable/of';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
@@ -19,8 +18,6 @@ export class MyApp {
 
   showSplashScreen: boolean = true;
 
-  // rootPage: any = HomePage;
-
   constructor(
     platform: Platform,
     statusBar: StatusBar,
@@ -29,11 +26,10 @@ export class MyApp {
   ) {
 
     // Checa se o usuário fez login
-    this.auth.angularFireAuthProvider.authState
+    this.auth.afAuth.authState
       .subscribe((auth) => {
         // Se o objeto 'auth' for válido navega para a home, caso contrário navega para o login
         (auth) ? this.nav.setRoot(HomePage, {}, { animate: false }) : this.nav.setRoot(LoginPage, {}, { animate: false });
-        // SigninPage
       });
 
     platform.ready().then(() => {
