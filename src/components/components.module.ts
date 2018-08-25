@@ -1,11 +1,9 @@
 import { IonicModule } from 'ionic-angular';
 import { NgModule } from '@angular/core';
 import { CtaComponent } from './cta/cta';
-import { ExamQuestionComponent } from './exam-question/exam-question';
 
 const COMPONENTS = [
   CtaComponent,
-  ExamQuestionComponent
 ]
 
 @NgModule({
