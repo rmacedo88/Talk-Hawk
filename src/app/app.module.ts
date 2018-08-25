@@ -9,10 +9,6 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AuthProvider } from '../providers/auth/auth';
-import { TalkHawkApiProvider } from '../providers/talk-hawk-api/talk-hawk-api';
-import { LoadingProvider } from '../providers/loading/loading';
-import { ShareContentProvider } from '../providers/share-content/share-content';
 
 @NgModule({
   declarations: [
@@ -41,10 +37,6 @@ import { ShareContentProvider } from '../providers/share-content/share-content';
   providers: [
     PROVIDERS,
     { provide: ErrorHandler, useClass: TalkHawkErrorHandler },
-    AuthProvider,
-    TalkHawkApiProvider,
-    LoadingProvider,
-    ShareContentProvider,
   ]
 })
 export class AppModule { }
