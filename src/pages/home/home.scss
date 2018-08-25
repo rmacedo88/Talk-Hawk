@@ -14,18 +14,7 @@ page-home {
     @extend .fadeInDown;
     @extend .delay-1-25s;
     @extend .faster;
-  } // .main-text-animation {
-  //   @extend .animated;
-  //   @extend .fadeIn;
-  //   @extend .delay-0-75s;
-  //   @extend .faster;
-  // }
-  // .image-animation {
-  //   @extend .animated;
-  //   @extend .fadeInUp;
-  //   @extend .delay-1-5s;
-  //   @extend .faster;
-  // }
+  }
   .icon-animation {
     @extend .animated;
     @extend .fadeInLeft;
@@ -42,7 +31,7 @@ page-home {
   }
   ion-card {
     @extend .card-animation;
-    @extend .card-rounded; // @extend .background-pattern; // position: relative;
+    @extend .card-rounded;
     background-blend-mode: normal, multiply !important;
     box-shadow: $shadow;
     margin-bottom: 0 !important;
