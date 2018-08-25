@@ -1,4 +1,4 @@
-import { ExamQuestionComponent } from './../../components/exam-question/exam-question';
+import { ShareContentProvider } from './../../providers/share-content/share-content';
 import { ChooseExamLevelPage } from './../choose-exam-level/choose-exam-level';
 import { TalkHawkApiProvider } from './../../providers/talk-hawk-api/talk-hawk-api';
 import { Component } from '@angular/core';
@@ -14,6 +14,7 @@ export class ExamModePage {
 
   // Nível de dificuldade escolhido
   examLevel: string;
+
   // Pontuação conquistada nessa rodada
   pointsEarned: number = 0;
 
@@ -23,20 +24,23 @@ export class ExamModePage {
   // Objeto exibido na tela com os dados da questão atual
   currentQuestionObject: any;
 
-  // Índice que identifica a próxima questão a ser exibida para o usuário
+  // Índice que determina a próxima questão a ser exibida para o usuário
   currentQuestion: number = 1;
 
   // Total de questões para essa rodada
   totalQuestions: number = 0;
 
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private talkHawkApi: TalkHawkApiProvider
+    private talkHawkApi: TalkHawkApiProvider,
+    private share: ShareContentProvider
   ) {
-    // [Recupera o a dificuldade escolhida pelo usuário]
+    // [Recupera a dificuldade escolhida pelo usuário]
     this.examLevel = this.navParams.get('level');
   }
+
 
   /**
    * Recupera a lista de questões usando a api talk hawk.
@@ -58,6 +62,7 @@ export class ExamModePage {
     //   .then(test => console.log(test))
     //   .catch(err => console.log(err));
   }
+
 
   /**
    * Carrega os dados de uma questão na tela.
@@ -87,6 +92,7 @@ export class ExamModePage {
 
   }
 
+
   /**
    * Avança o índice em uma posição e carrega a nova questão
    */
@@ -94,6 +100,7 @@ export class ExamModePage {
     this.currentQuestion++;
     this.createQuestion();
   }
+
 
   /**
    * Efetua a avaliação da resposta do usuário a cada questão respondida
@@ -118,7 +125,8 @@ export class ExamModePage {
       // [SERÁ ATUALIZADO: Atualmente envia o usuário de volta para a tela de escolha da dificuldade]
       timer(2000)
         .subscribe(() => {
-          this.navCtrl.setRoot(ChooseExamLevelPage);
+          this.share.shareContent('facebook', 'teste');
+          // this.navCtrl.setRoot(ChooseExamLevelPage);
         });
     } else {
       // [Se essa não é a última resposta, avança para a próxima questão]
