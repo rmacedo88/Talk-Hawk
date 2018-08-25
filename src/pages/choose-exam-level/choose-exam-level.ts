@@ -1,7 +1,6 @@
-import { Component, ViewChild, Renderer2 } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
-import { SigninPage } from '../signin/signin';
 import { ExamModePage } from '../exam-mode/exam-mode';
 
 @IonicPage()
