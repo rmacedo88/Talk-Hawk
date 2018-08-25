@@ -5,18 +5,11 @@ import { ToastController } from 'ionic-angular';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { of } from 'rxjs/observable/of';
 
-/*
-  Generated class for the AuthProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthProvider {
 
-  private MESSAGES: Array<any> =
-    [{ SIGNIN_ERROR: 'Erro ao fazer login com email e senha' },
-    {}];
+  public user: {};
+
 
   toastTemplate: {
     duration: 3000,
@@ -26,31 +19,91 @@ export class AuthProvider {
   }
 
   constructor(
-    public angularFireAuthProvider: AngularFireAuth,
-    private angularFirestoreProvider: AngularFirestore,
-    private toast: ToastController
+    public afAuth: AngularFireAuth,
+    private toast: ToastController,
+    private afs: AngularFirestore,
   ) {
+
+    let _uid: string;
 
     /*
      * Observa o comportamento do estado da autenticação, quando o
      * usuário fizer login seus dados serão recuperados.
      */
-    this.angularFireAuthProvider.authState
+    this.afAuth.authState
       .pipe(
-        switchMap(auth => (auth) ? this.angularFirestoreProvider.doc<any>(`user/${auth.uid}`).valueChanges() : of(null))
-      ).subscribe(user => {
-        if (user) {
-
+        switchMap((auth) => {
+          _uid = auth.uid;
+          return (auth) ? this.afs.doc<any>(`users/${auth.uid}`).valueChanges() : of(null);
         }
-      });
+        )).subscribe(user => {
+
+          // [Constrói o objeto do usuário, concatenando o user id às demais informações deste.]
+          const __buildUser = () => { this.user = { uid: _uid, ...user } };
+
+          // [Se a subscrição do authState retornou um usuário, chama o método __buildUser e deixa esse usuário disponível para leitura]
+          (user) ? __buildUser() : null;
+
+        });
   }
 
-  async logar(email, password) {
+
+  private required = (name?) => { throw new Error(`O parâmetro ${name || ''} é obrigatório.`) };
+
+
+  /**
+   *
+   * @param email
+   * @param password
+   */
+  public _signin = async (email, password) => {
     try {
-      return this.angularFireAuthProvider.auth.signInWithEmailAndPassword(email, password);
+
+      return await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+
+    } catch (e) {
+
+      this.toast.create({
+        message: this.firebaseError(e.code),
+        duration: 3000
+      }).present();
+
+      return false;
+    }
+  }
+
+
+  /**
+   *
+   * @param email
+   * @param password
+   * @param name
+   */
+  public _signup = async (email, password, name) => {
+    try {
+
+      await Promise.all([
+        this.afAuth.auth.createUserWithEmailAndPassword(email, password),
+        this.afs.collection('users')
+      ]
+      ).then(async (taskQueue) => {
+        const AUTH = 0;
+        const DATABASE = 1;
+
+        await taskQueue[DATABASE]
+          .doc(taskQueue[AUTH].uid)
+          .set({
+            name: name,
+            email: email,
+            createdAt: new Date()
+          });
+
+        return true;
+      });
+
     } catch (e) {
       this.toast.create({
-        message: this.decodeFirebaseErrorCodes(e.code),
+        message: this.firebaseError(e.code),
         duration: 3000
       }).present();
       return false;
@@ -58,15 +111,15 @@ export class AuthProvider {
   }
 
   signin(email, password): Promise<any> {
-    return this.angularFireAuthProvider.auth.signInWithEmailAndPassword(email, password);
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
   signup(email, password): Promise<any> {
     return new Promise((_resolve, reject) => {
-      this.angularFireAuthProvider.auth.createUserWithEmailAndPassword(email, password)
+      this.afAuth.auth.createUserWithEmailAndPassword(email, password)
         .then((userData) => {
 
-          this.angularFirestoreProvider.collection('user')
+          this.afs.collection('user')
             .doc(userData.user.uid)
             .set({
               name: name,
@@ -83,7 +136,7 @@ export class AuthProvider {
   }
 
   signout() {
-    this.angularFireAuthProvider.auth.signOut()
+    this.afAuth.auth.signOut()
       .then(() => {
         this.toast.create({ message: 'Você saiu do Hawk-Talk', ...this.toastTemplate });
       });
@@ -91,7 +144,7 @@ export class AuthProvider {
 
   resetPassword(email): Promise<any> {
     return new Promise((_resolve, _reject) => {
-      this.angularFireAuthProvider.auth.sendPasswordResetEmail(email)
+      this.afAuth.auth.sendPasswordResetEmail(email)
         .then(() => {
           this.toast.create({ message: 'Siga ga as instruções no seu email', ...this.toastTemplate });
         });
@@ -99,7 +152,7 @@ export class AuthProvider {
   }
 
 
-  private decodeFirebaseErrorCodes(errorCode: string) {
+  private firebaseError = (errorCode: string) => {
     switch (errorCode) {
       case 'auth/invalid-email':
       case 'auth/argument-error':
@@ -127,7 +180,7 @@ export class AuthProvider {
         errorCode = 'Erro interno da autenticação. Tente novamente.';
         break;
 
-      // Not mapped error
+      // Other errors
       default:
         errorCode = 'Erro no nosso servidor. Tente novamente.';
         break;
