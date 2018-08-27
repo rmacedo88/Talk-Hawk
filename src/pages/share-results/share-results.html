@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar transparent>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding fullscreen>
+
+  <h1>Compartilhe seu progresso</h1>
+
+  <section>
+
+    <ion-card>
+      <ion-card-header>
+      </ion-card-header>
+      <ion-card-content>
+        Parabens, o usuário Breno tirou 10 no exame fácil do APP TALK Hawk.
+      </ion-card-content>
+    </ion-card>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-icon tappable (click)="share()" name="share"></ion-icon>
+        </ion-col>
+        <ion-col col-6>
+          <ion-icon tappable (click)="whatsapp()" name="logo-whatsapp"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-icon tappable (click)="facebook()" name="logo-facebook"></ion-icon>
+        </ion-col>
+        <ion-col col-6>
+          <ion-icon tappable (click)="twitter()" name="logo-twitter"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </section>
+
+</ion-content>

@@ -1,0 +1,47 @@
+page-share-results {
+  ion-grid {
+    width: 90vw;
+  }
+  ion-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+  }
+  ion-icon {
+    margin: 0 auto !important;
+    font-size: 6.5rem !important;
+  }
+  /**
+   * Botão 'Compartilhar'
+   */
+  ion-row:first-child>ion-col:first-child {
+    ion-icon {
+      color: #00897b;
+    }
+  }
+  /**
+   * Botão 'Whatsapp'
+   */
+  ion-row:first-child>ion-col {
+    ion-icon {
+      color: #2e7d32;
+    }
+  }
+  /**
+   * Botão 'Facebook'
+   */
+  ion-row>ion-col:first-child {
+    ion-icon {
+      color: #0d47a1;
+    }
+  }
+  /**
+   * Botão 'Twitter'
+   */
+  ion-row>ion-col {
+    ion-icon {
+      color: #039be5;
+    }
+  }
+}
