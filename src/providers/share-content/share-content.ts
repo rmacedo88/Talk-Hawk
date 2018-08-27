@@ -1,3 +1,4 @@
+import { ToastController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
@@ -9,7 +10,7 @@ export class ShareContentProvider {
   private _signature: string = '\n Enviado do Aplicativo Talk Hawk !';
 
 
-  constructor(private socialSharing: SocialSharing) {
+  constructor(private socialSharing: SocialSharing, private toast: ToastController) {
   }
 
 
@@ -26,33 +27,49 @@ export class ShareContentProvider {
    * @param platform Aceita os valores: ['default', 'whatsapp', 'twitter' e 'facebook']
    * @param msg Mensagem compartilhada pelo usuário
    */
-  public shareContent = (platform: string = this.required('platform'), msg: string = this.required('msg')) => {
+  public shareContent = async (
+    platform: string = this.required('platform'),
+    msg: string = this.required('msg')
+  ) => {
+    try {
+      let test: string;
+      // [Concatena a mensagem à assinatura padrão do Talk Hawk]
+      msg = `${msg} ${this._signature}`;
 
-    // [Concatena a mensagem à assinatura padrão do Talk Hawk]
-    msg = `${msg} ${this._signature}`;
+      switch (platform) {
+        // [Envia para o menu 'compartilhar' do sistema operacional]
+        case 'default':
+          test = await this.socialSharing.share(msg, null, null, null);
+          break;
 
-    switch (platform) {
-      // [Envia para o menu 'compartilhar' do sistema operacional]
-      case 'default':
-        this.socialSharing.share(msg, null, null, null);
-        break;
+        case 'whatsapp':
+          test = await this.socialSharing.shareViaWhatsApp(msg, null, null);
+          break;
 
-      case 'whatsapp':
-        this.socialSharing.shareViaWhatsApp(msg, null, null);
-        break;
+        case 'twitter':
+          test = await this.socialSharing.shareViaTwitter(msg, null, null);
+          break;
 
-      case 'twitter':
-        this.socialSharing.shareViaTwitter(msg, null, null);
-        break;
+        case 'facebook':
+          test = await this.socialSharing.shareViaFacebook(msg, null, null);
+          break;
 
-      case 'facebook':
-        this.socialSharing.shareViaFacebook(msg, null, null);
-        break;
+        default:
+          break;
+      }
 
-      default:
-        break;
+      this.toast.create({
+        message: test,
+        duration: 10000
+      }).present();
+
+    } catch (error) {
+      this.toast.create({
+        message: error,
+        duration: 10000
+      }).present();
     }
-  };
 
+  };
 
 }
