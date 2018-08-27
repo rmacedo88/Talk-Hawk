@@ -30,10 +30,10 @@
         <ion-slide>
           <div padding [ngClass]="{ 'goToTop': keyboard?.isOpen()}">
             <ion-item>
-              <ion-input placeholder="Email" type="text"></ion-input>
+              <ion-input [(ngModel)]="loginForm.email" placeholder="Email" type="text"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input placeholder="Senha" type="password"></ion-input>
+              <ion-input [(ngModel)]="loginForm.password" placeholder="Senha" type="password"></ion-input>
             </ion-item>
             <button ion-button block tappable (click)="login()" color="light" class="login-button signin">Login</button>
             <button ion-button clear tappable (click)="slideNext()" color="light">Perdeu sua senha?</button>
@@ -45,7 +45,7 @@
         <ion-slide>
           <div padding [ngClass]="{ 'goToTop': keyboard?.isOpen()}">
             <ion-item>
-              <ion-input placeholder="Email" type="email"></ion-input>
+              <ion-input [(ngModel)]="loginForm.email" placeholder="Email" type="email"></ion-input>
             </ion-item>
             <button ion-button block tappable (click)="resetPassword()" color="light" class="login-button signin">Resetar senha</button>
             <button ion-button clear tappable (click)="slidePrevious()" color="light">
@@ -61,13 +61,13 @@
       </button>
       <div padding [ngClass]="{ 'goToTop': keyboard?.isOpen()}">
         <ion-item>
-          <ion-input placeholder="Nome" type="text"></ion-input>
+          <ion-input [(ngModel)]="loginForm.name" placeholder="Nome" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input placeholder="Senha" type="password"></ion-input>
+          <ion-input [(ngModel)]="loginForm.email" placeholder="Email" type="text"></ion-input>
         </ion-item>
         <ion-item class="margin-bottom">
-          <ion-input placeholder="Confirmar Senha" type="password"></ion-input>
+          <ion-input [(ngModel)]="loginForm.password" placeholder="Senha" type="password"></ion-input>
         </ion-item>
         <button ion-button block tappable (click)="signup()" color="light" class="login-button signup">Criar conta e logar</button>
       </div>
