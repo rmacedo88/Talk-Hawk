@@ -56,7 +56,10 @@ export class AuthProvider {
    * @param email
    * @param password
    */
-  public _signin = async (email, password) => {
+  public _signin = async (
+    email: string = this.required('email'),
+    password: string = this.required('senha')
+  ) => {
     try {
 
       return await this.afAuth.auth.signInWithEmailAndPassword(email, password);
@@ -79,7 +82,11 @@ export class AuthProvider {
    * @param password
    * @param name
    */
-  public _signup = async (email, password, name) => {
+  public _signup = async (
+    email: string = this.required('email'),
+    password: string = this.required('senha'),
+    name: string = this.required('nome')
+  ) => {
     try {
 
       await Promise.all([
