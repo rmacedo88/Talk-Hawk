@@ -22,7 +22,7 @@ export class LoginPage {
   signinAction: {} = { icon: 'signin', label: 'Fazer Login' };
   signupAction: {} = { icon: 'signup', label: 'Criar Conta' };
 
-  public loginForm: any;
+  public loginForm: { name?: string, email?: string, password?: string };
   public backgroundImage = 'assets/img/background/background-6.jpg';
 
   private slideAnimationDuration: number = 250;
@@ -36,9 +36,10 @@ export class LoginPage {
     public keyboard: Keyboard,
     private auth: AuthProvider
   ) {
+    this.loginForm = {};
   }
 
-  private required = (name?) => { throw new Error(`O parâmetro ${name || ''} é obrigatório.`) };
+  // private required = (name?) => { throw new Error(`O parâmetro ${name || ''} é obrigatório.`) };
 
   // Slider methods
   @ViewChild('slider') slider: Slides;
@@ -78,23 +79,23 @@ export class LoginPage {
   }
 
 
-  public login = async (
-    email: string = this.required('email'),
-    password: string = this.required('senha')
-  ) => {
-    await this.auth._signin(email, password);
+  public login = async () => {
+    await this.auth._signin(
+      this.loginForm.email,
+      this.loginForm.password);
+
     timer(4000).subscribe(() => {
       this.auth.signout();
     });
   }
 
 
-  public signup = async (
-    email: string = this.required('email'),
-    password: string = this.required('senha'),
-    name: string = this.required('nome')
-  ) => {
-    await this.auth._signup(email, password, name);
+
+  public signup = async () => {
+    await this.auth._signup(
+      this.loginForm.email,
+      this.loginForm.password,
+      this.loginForm.name);
   }
 
 
