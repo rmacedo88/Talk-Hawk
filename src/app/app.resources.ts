@@ -1,3 +1,5 @@
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
+import { VoiceRecognitionProvider } from './../providers/voice-recognition/voice-recognition';
 import { ShareContentProvider } from './../providers/share-content/share-content';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ExamModePageModule } from './../pages/exam-mode/exam-mode.module';
@@ -16,6 +18,7 @@ import { DirectivesModule } from '../directives/directives.module';
 import { LoginPageModule } from '../pages/login/login.module';
 import { TalkHawkApiProvider } from '../providers/talk-hawk-api/talk-hawk-api';
 import { LoadingProvider } from '../providers/loading/loading';
+import { ShareResultsPageModule } from '../pages/share-results/share-results.module';
 
 
 export const MODULES = [
@@ -27,6 +30,7 @@ export const MODULES = [
   ChooseExamLevelPageModule,
   CareerModePageModule,
   ExamModePageModule,
+  ShareResultsPageModule,
 
   DirectivesModule
 ];
@@ -39,6 +43,7 @@ export const PROVIDERS = [
   Nav,
   Keyboard,
   SocialSharing,
+  SpeechRecognition,
 
   // FIRESTORE AUTH PROVIDER
   AngularFireAuth,
@@ -48,6 +53,7 @@ export const PROVIDERS = [
   TalkHawkApiProvider,
   LoadingProvider,
   ShareContentProvider,
+  VoiceRecognitionProvider,
 
   // SERVICE WORKERS
 
