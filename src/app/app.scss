@@ -89,8 +89,12 @@ button {
 // background-size: 16px 16px !important;
 // primeiro
 //
-ion-content {
+.app-root {
   @extend .background-pattern;
+}
+
+ion-content {
+  background-color: transparent !important;
   border-color: transparent !important; // background-size: cover !important;
 }
 
@@ -112,12 +116,16 @@ section {
   @extend .row; // width: 90% !important;
 }
 
-.scroll-content {
-  @extend .flex-container;
+ion-nav {
   background-size: 100vw 30vh;
   background-image: url('../assets/imgs/backdrop.png') !important;
   background-repeat: no-repeat !important;
   background-position: bottom !important;
+}
+
+.scroll-content {
+  @extend .flex-container;
+  background-color: transparent !important;
 }
 
 .scroll-content>h1 {
