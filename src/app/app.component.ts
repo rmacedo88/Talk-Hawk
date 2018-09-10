@@ -1,3 +1,4 @@
+import { ShareResultsPage } from './../pages/share-results/share-results';
 import { of } from 'rxjs/observable/of';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';

@@ -15,7 +15,7 @@ export class HomePage {
   }
 
   goToModeSelection() {
-    this.navCtrl.setRoot(ModeSelectionPage, {}, { animate: false });
+    this.navCtrl.push(ModeSelectionPage, {}, { animate: false });
   }
 
 }

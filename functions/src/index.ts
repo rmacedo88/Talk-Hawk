@@ -132,11 +132,16 @@ app.get('/questions/list/:questionType', (req, res) => {
  */
 app.post('/questions/response/:questionType', (req, res) => {
 
+  // [Valida os parâmetros de entrada]
+  const _USER = (req.body.userUID) ? req.body.userUID : res.status(400).send('Usuário não informado');
+  const _QUESTION = (req.body.questionUID) ? req.body.questionUID : res.status(400).send('Questão não informada');
+  const _RESP = (req.body.response) ? req.body.response : res.status(400).send('Resposta do usuário não informada');
+
   let responseObject: any;
 
   // [Acessa a coleção de questões e recupera uma questão específica a partir do ID]
   db.collection('questions')
-    .doc(req.body.questionUID)
+    .doc(_QUESTION)
     .get()
     .then(questionData => {
 
@@ -144,12 +149,12 @@ app.post('/questions/response/:questionType', (req, res) => {
       if (questionData.exists) {
 
         // [Arrow Function que determina se a questão foi respondida corretamente ou não. O retorno é booleano]
-        const isQuestionRight = () => (req.body.response === questionData.data().response);
+        const isQuestionRight = () => (_RESP === questionData.data().response);
 
         // [Registra a resposta do usuário na collection 'user-question-answer']
         db.collection('user-question-answer')
           .add({
-            userUID: 1,
+            userUID: _USER,
             questionUID: questionData.ref.id,
             examLevel: questionData.data().level,
             // Se a questão estiver correta, atribui os pontos, caso contrário, atribui ZERO
@@ -162,20 +167,20 @@ app.post('/questions/response/:questionType', (req, res) => {
 
           // [Atualiza a conta do usuário com seus pontos ganhos]
           db.collection('users')
-            .doc('1')
+            .doc(_USER)
             .get()
             .then(userData => {
 
               if (questionData.data().level === 'easy') {
                 userData.ref.update({
-                  easyExamPoints: (userData.data().easyExamPoints + questionData.data().points),
+                  easyExamPoints: ((userData.data().easyExamPoints || 0) + questionData.data().points),
                   lastUpdate: new Date()
                 });
               }
 
               if (questionData.data().level === 'hard') {
                 userData.ref.update({
-                  hardExamPoints: (userData.data().hardExamPoints + questionData.data().points),
+                  hardExamPoints: ((userData.data().hardExamPoints || 0) + questionData.data().points),
                   lastUpdate: new Date()
                 });
               }

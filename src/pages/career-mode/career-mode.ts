@@ -9,10 +9,14 @@ import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
 export class CareerModePage {
 
   @ViewChild(Navbar) navBar: Navbar;
+
   change: boolean = true;
   titleAnswer: string = '';
   leftResponse: string = 'first-answer-animation-enter';
   rightResponse: string = 'second-answer-animation-enter';
+
+  signinAction: {} = { icon: 'signin', label: 'Fazer Login' };
+  signupAction: {} = { icon: 'signup', label: 'Criar Conta' };
 
   leftColors: Array<any> = [
     { text: 'Blue', code: '#2196f3', side: 'left' },

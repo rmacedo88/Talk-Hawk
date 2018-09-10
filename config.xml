@@ -3,7 +3,7 @@
     <name>TalkHawk</name>
     <description>Talk Hawk App</description>
     <author email="owner.talkhawk@gmail.com" href="http://ionicframework.com/">Talk Hawk Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.137.1:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -86,7 +86,8 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <allow-navigation href="http://192.168.0.12:8100" />
     <allow-navigation href="http://192.168.137.1:8100" />
-    <engine name="android" spec="7.0.0" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.1" />
     <plugin name="cordova-plugin-speechrecognition" spec="^1.2.0" />
+    <allow-navigation href="http://192.168.25.4:8100" />
+    <engine name="android" spec="^7.1.1" />
 </widget>

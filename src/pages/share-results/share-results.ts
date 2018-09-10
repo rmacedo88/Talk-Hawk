@@ -9,33 +9,49 @@ import { ShareContentProvider } from '../../providers/share-content/share-conten
 })
 export class ShareResultsPage {
 
-  // @Input()
+  origin: string;
+  data: any;
+
+  sharedContent: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private shareContent: ShareContentProvider
   ) {
+    this.origin = this.navParams.get('origin');
+    this.data = this.navParams.get('data');
   }
 
   ionViewDidLoad() {
+    switch (this.origin) {
+      case 'exam-mode':
+        this.sharedContent = `Parabéns! O usuário ${this.data.userName} fez ${this.data.points}
+                     ponto${(this.data.points > 1) ? 's' : ''} no exame ${this.data.level} do app Talk Hawk!`;
+        break;
+
+      case 'career-mode':
+        break;
+
+      default:
+        break;
+    }
   }
 
-  test: string = 'O rato roeu a roupa do rei de roma'
 
   public share = () => {
-    this.shareContent.shareContent('default', this.test);
+    this.shareContent.shareContent('default', this.sharedContent);
   }
 
   public whatsapp = () => {
-    this.shareContent.shareContent('whatsapp', this.test);
+    this.shareContent.shareContent('whatsapp', this.sharedContent);
   }
 
   public facebook = () => {
-    this.shareContent.shareContent('facebook', this.test);
+    this.shareContent.shareContent('facebook', this.sharedContent);
   }
 
   public twitter = () => {
-    this.shareContent.shareContent('twitter', this.test);
+    this.shareContent.shareContent('twitter', this.sharedContent);
   }
 }

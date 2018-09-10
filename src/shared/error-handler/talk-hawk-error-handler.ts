@@ -43,7 +43,7 @@ export class TalkHawkErrorHandler extends ErrorHandler {
       .present();
 
     // [Trata o erro da maneira padrão (exibindo no console de erros)]
-    super.handleError(error);
+    // super.handleError(error);
   }
 
 }

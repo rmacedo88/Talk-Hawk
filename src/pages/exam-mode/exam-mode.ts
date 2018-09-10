@@ -1,9 +1,9 @@
-import { ShareContentProvider } from './../../providers/share-content/share-content';
-import { ChooseExamLevelPage } from './../choose-exam-level/choose-exam-level';
+import { AuthProvider } from './../../providers/auth/auth';
 import { TalkHawkApiProvider } from './../../providers/talk-hawk-api/talk-hawk-api';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { timer } from 'rxjs/observable/timer';
+import { ShareResultsPage } from '../share-results/share-results';
 
 @IonicPage()
 @Component({
@@ -35,7 +35,7 @@ export class ExamModePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private talkHawkApi: TalkHawkApiProvider,
-    private share: ShareContentProvider
+    private auth: AuthProvider,
   ) {
     // [Recupera a dificuldade escolhida pelo usuário]
     this.examLevel = this.navParams.get('level');
@@ -109,12 +109,15 @@ export class ExamModePage {
    */
   async questionResponse(responseOption: string, id: string) {
 
+    console.log(this.auth.user.uid);
+
     // [Envia a resposta para avaliação]
     const responseFeedback = await this.talkHawkApi
       .post(`/questions/response/${this.navParams.get('level')}`,
         {
           questionUID: id,
-          response: responseOption
+          response: responseOption,
+          userUID: this.auth.user.uid
         });
 
     // [Recupera o feedback e incrementa a pontuação do usuário]
@@ -123,10 +126,16 @@ export class ExamModePage {
     // [Checa se essa resposta se refere à última questão]
     if (this.currentQuestion === this.totalQuestions) {
       // [SERÁ ATUALIZADO: Atualmente envia o usuário de volta para a tela de escolha da dificuldade]
-      timer(2000)
+      timer(1500)
         .subscribe(() => {
-          this.share.shareContent('facebook', 'teste');
-          // this.navCtrl.setRoot(ChooseExamLevelPage);
+          this.navCtrl.setRoot(ShareResultsPage, {
+            origin: 'exam-mode',
+            data: {
+              level: (this.examLevel === 'easy' ? 'fácil' : 'difícil'),
+              points: this.pointsEarned,
+              userName: this.auth.user.name
+            }
+          });
         });
     } else {
       // [Se essa não é a última resposta, avança para a próxima questão]

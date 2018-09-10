@@ -84,9 +84,9 @@ export class LoginPage {
       this.loginForm.email,
       this.loginForm.password);
 
-    timer(4000).subscribe(() => {
-      this.auth.signout();
-    });
+    // timer(4000).subscribe(() => {
+    //   this.auth.signout();
+    // });
   }
 
 

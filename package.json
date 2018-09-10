@@ -9,7 +9,8 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
-    "deploy": "ionic cordova run android --device --prod --aot --minifycss --minifyjs --optimizejs"
+    "deploy": "ionic cordova run android --device --prod --aot --minifycss --minifyjs --optimizejs",
+    "develop": "ionic cordova run android --device --aot --minifycss --minifyjs --optimizejs --livereload"
   },
   "dependencies": {
     "@angular/animations": "5.2.11",

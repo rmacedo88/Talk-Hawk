@@ -1,5 +1,7 @@
 page-home {
   $shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+  $welcome-text-size: 9vh;
+
   /*
    * Animations
    */
@@ -9,12 +11,14 @@ page-home {
     @extend .delay-0-4s;
     @extend .fast;
   }
+
   .button-animation {
     @extend .animated;
     @extend .fadeInDown;
     @extend .delay-1-25s;
     @extend .faster;
   }
+
   .icon-animation {
     @extend .animated;
     @extend .fadeInLeft;
@@ -22,13 +26,16 @@ page-home {
     @extend .slow;
     @extend .infinite;
   }
+
   .scroll-content {
     /* Disable scroll */
     overflow-y: hidden !important;
   }
+
   section {
     flex-direction: column 1important;
   }
+
   ion-card {
     @extend .card-animation;
     @extend .card-rounded;
@@ -39,6 +46,7 @@ page-home {
     background: linear-gradient(135deg, rgba(144, 202, 249, 1) 0%, rgba(100, 181, 246, 1) 10%, rgba(66, 165, 245, 1) 25%, rgba(33, 150, 243, 1) 40%, rgba(30, 136, 229, 1) 55%, rgba(25, 118, 210, 1) 70%, rgba(21, 101, 192, 1) 85%, rgba(13, 71, 161, 1) 100%) !important; // background: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%) !important;
     // background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%) !important;
   }
+
   ion-card>p {
     // @extend .main-text-animation;
     color: #fff !important;
@@ -46,29 +54,44 @@ page-home {
     max-width: 80%;
     text-align: justify;
     letter-spacing: initial !important;
-    font-size: 11pt !important;
+    font-size: 12pt !important;
     font-weight: 500 !important;
     line-height: 1 !important;
   }
+
   ion-card-title {
     // @extend .center;
     // vertical-align: middle !important;
-    margin-top: 9vh !important; // margin-bottom: 2.5vh !important;
-    height: 9vh;
-    transform: translateY(-50%);
+    margin-top: 4.5vh !important;
+    margin-bottom: 4.5vh !important;
+    min-height: $welcome-text-size !important;
+    // transform: translateY(-50%);
     background-color: rgba(255, 255, 255, .2);
+    padding: unset !important;
+    // text-align: center !important;
+    // text-transform: uppercase;
+    // vertical-align: middle !important;
+    // transform: translateY(-50%);
   }
+
   ion-card-title>h1 {
-    position: relative;
+    // position: relative;
     top: 50% !important;
-    bottom: 50% !important;
-    transform: translateY(-50%) !important;
+    // bottom: 50% !important;
+    // transform: translateY(-50%) !important;
+    // top: 2vh !important;
+    width: 100%;
+    height: $welcome-text-size !important;
+    // display: inline-block;
+    // position: absolute;
     color: #fff !important;
     text-transform: uppercase;
     text-align: center;
-    font-weight: 900 !important; // opacity: .8;
-    font-size: 14pt;
+    font-weight: bold !important; // opacity: .8;
+    // font-size: 14pt !important;
+    margin: 0 auto !important;
   }
+
   ion-card>img {
     // @extend .image-animation;
     $img-size: 18vh;
@@ -78,6 +101,7 @@ page-home {
     margin-top: 6vh !important;
     margin: 0 auto; // opacity: .3;
   }
+
   button {
     @extend .btn;
     @extend .button-animation;
@@ -90,10 +114,12 @@ page-home {
     box-shadow: $shadow; // text-align: center !important;
     background: linear-gradient(to right, rgba(189, 189, 189, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%) !important;
   }
+
   ion-icon {
     @extend .icon-animation; // position: relative;
     margin-left: 5%;
   }
+
   /*
   * FONT
   */

@@ -1,10 +1,13 @@
 page-login {
   $shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+
   ion-content>ion-slides {
     @extend .row;
   }
+
   $signin-color: #0277bd;
   $signup-color: #558b2f;
+
   ion-content {
     /* Desabilita scroll */
     overflow-y: hidden !important;
@@ -12,47 +15,59 @@ page-login {
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
   }
+
   .signin-card {
     @extend .card-button;
     background-color: $signin-color;
   }
+
   .signin-card>.img-container {
     @extend .shadow-icon;
     background: $signin-color !important;
   }
+
   .backdrop-signin {
     @extend .backdrop;
     background-image: url('../assets/imgs/signin.backdrop.svg') !important;
   }
+
   .signup-card {
     @extend .card-button;
     background-color: $signup-color;
   }
+
   .signup-card>.img-container {
     @extend .shadow-icon;
     background: $signup-color !important;
   }
+
   .backdrop-signup {
     @extend .backdrop;
     background-image: url('../assets/imgs/signup.backdrop.svg') !important;
   }
+
   .the-header h1 {
     left: -4vh !important;
   }
+
   .goToTop {
     top: -5px !important;
     position: absolute;
     width: 100% !important;
   }
+
   div>ion-item:first-child {
     border-radius: 15px 15px 0 0 !important;
   }
+
   div>ion-item {
     box-shadow: $shadow;
   }
+
   .item-input-has-focus {
     margin-bottom: 2.5vh;
   }
+
   .login-button {
     color: $divider !important;
     box-shadow: $shadow;
@@ -62,34 +77,42 @@ page-login {
     margin-bottom: 2vh; // background-color: rgba(255, 255, 255, 0.9);
     opacity: .75 !important;
   }
+
   button {
     color: rgba(2, 136, 209, .9) !important;
     font-weight: 500 !important;
     font-size: 11pt !important;
   }
+
   button[clear] {
     font-size: 14pt !important;
     font-weight: bolder;
+
     ion-icon {
       margin-left: 5px;
       margin-right: 5px;
     }
   }
+
   ion-slides[text-slider] {
     max-height: 10vh !important;
     width: auto;
   }
+
   ion-slide[text-slide] {
     font-size: 18pt;
     font-weight: 500;
     max-height: 10vh !important;
   }
+
   .signin {
     background-color: $signin-color !important;
   }
+
   .signup {
     background-color: $signup-color !important;
   }
+
   div[padding] {
     padding: 20%;
   }

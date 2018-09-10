@@ -11,24 +11,34 @@
 
     <h1 [attr.class]="titleAnswer">Qual dessas cores você prefere?</h1>
 
-    <ion-row>
-      <ion-col col-6 [attr.class]="leftResponse">
-        <!-- <ion-card>
-          <ion-card-header ion-text>{{leftColor.text}}</ion-card-header>
-        </ion-card> -->
+    <!-- {{signinAction | json}}
+    {{signupAction | json}} -->
+
+    <div>
+      <span>
+        {{signinAction?.label}}
+      </span>
+      <span>
+        {{signinAction?.label}}
+      </span>
+      <!-- <call-to-action [attr.class]="leftResponse" [icon]="signinAction?.icon" [label]="signinAction?.label" (action)="goToSignin()"></call-to-action> -->
+      <!-- <call-to-action [attr.class]="rightResponse" [icon]="signupAction?.icon" [label]="signupAction?.label" (action)="goToSignup()"></call-to-action> -->
+    </div>
+
+    <!-- <ion-row>
+      <ion-col col-6 >
+
         <div ion-text>
           {{leftColor.text}}
         </div>
       </ion-col>
-      <ion-col col-6 [attr.class]="rightResponse">
+      <ion-col col-6 >
         <div ion-text>
           {{rightColor.text}}
         </div>
-        <!-- <ion-card>
-          <ion-card-header ion-text>{{rightColor.text}}</ion-card-header>
-        </ion-card> -->
+
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <h2>*Pressione o microfone e fale sua resposta</h2>
 
