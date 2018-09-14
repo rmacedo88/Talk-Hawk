@@ -11,51 +11,31 @@
 
     <h1 [attr.class]="titleAnswer">Qual dessas cores você prefere?</h1>
 
-    <!-- {{signinAction | json}}
-    {{signupAction | json}} -->
-
     <div>
-      <span>
-        {{signinAction?.label}}
+      <span [attr.class]="leftResponse">
+        {{leftColor?.text}}
       </span>
-      <span>
-        {{signinAction?.label}}
+      <span [attr.class]="rightResponse">
+        {{rightColor?.text}}
       </span>
-      <!-- <call-to-action [attr.class]="leftResponse" [icon]="signinAction?.icon" [label]="signinAction?.label" (action)="goToSignin()"></call-to-action> -->
-      <!-- <call-to-action [attr.class]="rightResponse" [icon]="signupAction?.icon" [label]="signupAction?.label" (action)="goToSignup()"></call-to-action> -->
     </div>
 
-    <!-- <ion-row>
-      <ion-col col-6 >
-
-        <div ion-text>
-          {{leftColor.text}}
-        </div>
-      </ion-col>
-      <ion-col col-6 >
-        <div ion-text>
-          {{rightColor.text}}
-        </div>
-
-      </ion-col>
-    </ion-row> -->
-
-    <h2>*Pressione o microfone e fale sua resposta</h2>
+    <h2>*Pressione o microfone e fale sua resposta <b>em Inglês</b></h2>
 
   </section>
 </ion-content>
 
 <ion-footer>
-  <div class="box">
+  <div>
     <div class="object">
-      <div class="outline">
+      <div [attr.class]="micActive">
       </div>
-      <div class="outline" id="delayed">
+      <div [attr.class]="micActive" id="delayed">
       </div>
       <div class="button">
       </div>
-      <div class="button" id="circlein" tappable (click)="openMic()">
-        <img class="mic-icon" src="../../assets/imgs/mic.svg" alt="">
+      <div class="button" id="circlein" tappable (click)="openMic($event)">
+        <img class="mic-icon" src="../../assets/imgs/mic.svg">
       </div>
     </div>
   </div>

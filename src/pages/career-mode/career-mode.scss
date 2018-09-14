@@ -1,4 +1,6 @@
 page-career-mode {
+  $fake-button-border: 50px;
+
   .first-answer-animation-enter {
     @extend .animated;
     @extend .fadeInLeftBig;
@@ -25,105 +27,84 @@ page-career-mode {
     @extend .fast;
   }
 
-  ion-col {
-    // @extend .card-rounded;
-    margin: 0 auto !important;
-    position: relative;
-    padding: 10px;
+  .answer-animation {
+    @extend .animated;
+    @extend .fadeInDownBig;
+    @extend .animated;
+    @extend .fast;
   }
 
-  ion-col>div {
-    // @extend .card-rounded;
-    margin: 0 auto !important; // border: .5px solid $secondary-text !important;
-    position: relative;
-    text-align: center;
-    box-shadow: none !important;
-    width: 100% !important;
-    height: auto !important;
-    background-color: transparent !important;
+  .tip-animation {
+    @extend .animated;
+    @extend .fadeInUpBig;
+    @extend .animated;
+    @extend .fast;
   }
 
-  ion-col,
-  ion-col>div {
-    height: 13vh !important; // vertical-align: middle !important; // ion-card-header {
-    position: relative !important; // color: $divider !important;
-    font-size: 1.7em !important;
-    font-weight: bold !important; // text-transform: uppercase !important;
-    text-align: center !important;
-    white-space: inherit !important; // }
+  .mic-animation {
+    @extend .animated;
+    @extend .fadeInUpBig;
+    @extend .animated;
+    @extend .delay-0-4s;
+    @extend .fast;
   }
 
   section {
 
     h1,
-    h2,
-    ion-row {
-      width: 100vw !important; // margin-top: 40% !important; // @extend .center;
-    }
-
-    h1,
     h2 {
-      margin-left: 10%;
-      margin-right: 10%;
+      width: 100vw !important;
+      margin-left: 5%;
+      margin-right: 5%;
       text-align: center;
       color: rgba(2, 136, 209, .9);
     }
 
     h1 {
-      font-size: 16pt;
-      font-weight: 600; // border-bottom: 1px solid rgba(2, 136, 209, .9);
+      @extend .answer-animation;
+      margin-bottom: 5vh;
+      font-size: 20pt;
+      font-weight: 600;
     }
 
     h2 {
-      @extend .animated;
-      @extend .fadeInUpBig;
-      @extend .animated;
-      @extend .fast;
+      @extend .tip-animation;
+      margin-top: 25vh !important;
       font-size: 11pt;
       font-weight: 500;
     }
 
     div {
-      // min-width: 50vw;
-      // max-height: 10vh;
       flex-direction: row;
       display: flex;
       width: 100vw;
 
       span {
-        @extend .card-rounded;
-        height: 9vh;
+        $height: 10vh;
+        height: $height;
+        line-height: $height !important;
+        font-size: 14pt !important;
+        background-color: rgba(1, 87, 155, .85);
+        color: rgba(250, 250, 250, .95);
         margin: unset !important;
         width: 50vw !important;
-        // border: 1px blue dotted;
-        // transform: translateY(-50%);
         text-align: center;
-        // transform: translateY(-200%);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10),
-          0 6px 6px rgba(0, 0, 0, 0.12) !important;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18),
+          0 6px 6px rgba(1, 87, 155, 0.08) !important;
       }
 
       span:nth-child(2) {
         margin-right: -2.5vw !important;
         margin-left: 2.5vw !important;
+        border-top-left-radius: $fake-button-border !important;
+        border-bottom-left-radius: $fake-button-border !important;
       }
 
       span:first-child {
         margin-left: -2.5vw !important;
         margin-right: 5vw !important;
-      }
-    }
-
-    ion-row {
-      margin-top: 3vh;
-      margin-bottom: 10vh;
-
-      ion-col {
-        border-right: 1px solid blue; // @extend .second-answer-animation-enter;
-      }
-
-      ion-col:first-child {
-        border-left: 1px solid blue; // @extend .first-answer-animation-enter;
+        border-top-right-radius: $fake-button-border !important;
+        border-bottom-right-radius: $fake-button-border !important;
       }
     }
   }
@@ -131,15 +112,10 @@ page-career-mode {
   /*
    * Microfone
    */
-  //.box
   ion-footer>div {
-    @extend .animated;
-    @extend .fadeInUpBig;
-    @extend .animated;
-    @extend .delay-0-4s;
-    @extend .fast;
+    @extend .mic-animation;
     position: absolute;
-    top: -10vh;
+    top: -7vh;
     left: 50%;
   }
 
@@ -155,7 +131,7 @@ page-career-mode {
     $size: 60px;
     width: $size;
     height: $size;
-    border-radius: 50%; // border: 8px solid #B5A4A4;
+    border-radius: 50%;
     animation: pulse 2s;
     animation-timing-function: ease-out;
     animation-iteration-count: infinite;
@@ -166,8 +142,8 @@ page-career-mode {
     $size: 70px;
     width: $size;
     height: $size;
-    border-radius: 50%; // border: .5px solid #0277BD;
-    background: transparent; // #0277BD;
+    border-radius: 50%;
+    background: transparent;
     position: absolute;
   }
 
@@ -178,7 +154,7 @@ page-career-mode {
 
   @keyframes pulse {
     0% {
-      transform: scale(1);
+      transform: scale3d(1, 1, 1);
       opacity: 0;
       border: 1px solid #4983EA;
     }
@@ -189,13 +165,13 @@ page-career-mode {
     }
 
     90% {
-      transform: scale(2);
+      transform: scale3d(2, 2, 2);
       opacity: 0.2;
       border: 3px solid #50CDDD;
     }
 
     100% {
-      transform: scale(2.5);
+      transform: scale3d(2.5, 2.5, 2.5);
       opacity: 0;
       border: 1px solid #4CF4D9;
     }
@@ -218,38 +194,5 @@ page-career-mode {
   .mic-icon {
     height: 45px;
     margin: 6px;
-  }
-
-  $signin-color: #0277bd;
-  $signup-color: #558b2f;
-
-  .signin-card {
-    @extend .card-button;
-    background-color: $signin-color;
-  }
-
-  .signin-card>.img-container {
-    @extend .shadow-icon;
-    background: $signin-color !important;
-  }
-
-  .backdrop-signin {
-    @extend .backdrop;
-    background-image: url('../assets/imgs/signin.backdrop.svg') !important;
-  }
-
-  .signup-card {
-    @extend .card-button;
-    background-color: $signup-color;
-  }
-
-  .signup-card>.img-container {
-    @extend .shadow-icon;
-    background: $signup-color !important;
-  }
-
-  .backdrop-signup {
-    @extend .backdrop;
-    background-image: url('../assets/imgs/signup.backdrop.svg') !important;
   }
 }

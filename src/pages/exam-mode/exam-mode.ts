@@ -1,3 +1,5 @@
+import { UtilsProvider } from './../../providers/utils/utils';
+import { take } from 'rxjs/operators/take';
 import { AuthProvider } from './../../providers/auth/auth';
 import { TalkHawkApiProvider } from './../../providers/talk-hawk-api/talk-hawk-api';
 import { Component } from '@angular/core';
@@ -36,6 +38,7 @@ export class ExamModePage {
     public navParams: NavParams,
     private talkHawkApi: TalkHawkApiProvider,
     private auth: AuthProvider,
+    private util: UtilsProvider
   ) {
     // [Recupera a dificuldade escolhida pelo usuário]
     this.examLevel = this.navParams.get('level');
@@ -107,39 +110,40 @@ export class ExamModePage {
    * @param responseOption uma letra entre 'a' e 'd'
    * @param id UID de um determinado documento da collection 'questions'
    */
-  async questionResponse(responseOption: string, id: string) {
+  public questionResponse = async (responseOption: string, id: string) => {
+    if (this.util.NETWORK_AVAILABLE) {
+      console.log(this.auth.user.uid);
 
-    console.log(this.auth.user.uid);
-
-    // [Envia a resposta para avaliação]
-    const responseFeedback = await this.talkHawkApi
-      .post(`/questions/response/${this.navParams.get('level')}`,
-        {
-          questionUID: id,
-          response: responseOption,
-          userUID: this.auth.user.uid
-        });
-
-    // [Recupera o feedback e incrementa a pontuação do usuário]
-    this.pointsEarned += (responseFeedback.points) ? responseFeedback.points : 0;
-
-    // [Checa se essa resposta se refere à última questão]
-    if (this.currentQuestion === this.totalQuestions) {
-      // [SERÁ ATUALIZADO: Atualmente envia o usuário de volta para a tela de escolha da dificuldade]
-      timer(1500)
-        .subscribe(() => {
-          this.navCtrl.setRoot(ShareResultsPage, {
-            origin: 'exam-mode',
-            data: {
-              level: (this.examLevel === 'easy' ? 'fácil' : 'difícil'),
-              points: this.pointsEarned,
-              userName: this.auth.user.name
-            }
+      // [Envia a resposta para avaliação]
+      const responseFeedback = await this.talkHawkApi
+        .post(`/questions/response/${this.navParams.get('level')}`,
+          {
+            questionUID: id,
+            response: responseOption,
+            userUID: this.auth.user.uid
           });
-        });
-    } else {
-      // [Se essa não é a última resposta, avança para a próxima questão]
-      this.goToNextQuestion();
+
+      // [Recupera o feedback e incrementa a pontuação do usuário]
+      this.pointsEarned += (responseFeedback.points) ? responseFeedback.points : 0;
+
+      // [Checa se essa resposta se refere à última questão]
+      if (this.currentQuestion === this.totalQuestions) {
+        timer(800)
+          .pipe(take(1))
+          .subscribe(() => {
+            this.navCtrl.setRoot(ShareResultsPage, {
+              origin: 'exam-mode',
+              data: {
+                level: (this.examLevel === 'easy' ? 'fácil' : 'difícil'),
+                points: this.pointsEarned,
+                userName: this.auth.user.name
+              }
+            });
+          });
+      } else {
+        // [Se essa não é a última resposta, avança para a próxima questão]
+        this.goToNextQuestion();
+      }
     }
 
   }

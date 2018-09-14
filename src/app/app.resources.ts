@@ -1,3 +1,5 @@
+import { Network } from '@ionic-native/network';
+import { UtilsProvider } from './../providers/utils/utils';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { VoiceRecognitionProvider } from './../providers/voice-recognition/voice-recognition';
 import { ShareContentProvider } from './../providers/share-content/share-content';
@@ -44,9 +46,12 @@ export const PROVIDERS = [
   Keyboard,
   SocialSharing,
   SpeechRecognition,
+  Network,
+
 
   // FIRESTORE AUTH PROVIDER
   AngularFireAuth,
+
 
   // CUSTOM PROVIDERS
   AuthProvider,
@@ -54,6 +59,7 @@ export const PROVIDERS = [
   LoadingProvider,
   ShareContentProvider,
   VoiceRecognitionProvider,
+  UtilsProvider,
 
   // SERVICE WORKERS
 

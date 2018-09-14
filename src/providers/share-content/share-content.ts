@@ -51,7 +51,7 @@ export class ShareContentProvider {
           break;
 
         case 'facebook':
-          await this.socialSharing.shareViaFacebook(msg, this.img, 'https://google.com');
+          await this.socialSharing.shareViaFacebookWithPasteMessageHint(msg, this.img, null, 'Cole o texto no mural e compartilhe ;)');
           break;
 
         default:

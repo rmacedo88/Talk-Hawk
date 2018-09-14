@@ -1,5 +1,7 @@
+import { UtilsProvider } from './../../providers/utils/utils';
+import { VoiceRecognitionProvider } from './../../providers/voice-recognition/voice-recognition';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Navbar, ToastController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -15,8 +17,7 @@ export class CareerModePage {
   leftResponse: string = 'first-answer-animation-enter';
   rightResponse: string = 'second-answer-animation-enter';
 
-  signinAction: {} = { icon: 'signin', label: 'Fazer Login' };
-  signupAction: {} = { icon: 'signup', label: 'Criar Conta' };
+  micActive: string = null;
 
   leftColors: Array<any> = [
     { text: 'Blue', code: '#2196f3', side: 'left' },
@@ -41,8 +42,15 @@ export class CareerModePage {
   leftColor: {} = this.leftColors[0];
   rightColor: {} = this.rightColors[0];;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  hasPermission: boolean = false;
 
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private voiceRecognition: VoiceRecognitionProvider,
+    private util: UtilsProvider
+  ) {
+    this.voiceRecognition.requestPermission();
   }
 
   ionViewDidLoad() {
@@ -64,15 +72,29 @@ export class CareerModePage {
     }, 100);
   }
 
-  openMic() {
-    this.updateAnimations();
-    console.log('mic opened');
-    this.change = (this.change) ? false : true;
-    this.leftColor = this.leftColors[Math.floor(Math.random() * this.leftColors.length)];
-    this.rightColor = this.rightColors[Math.floor(Math.random() * this.rightColors.length)];
-    this.animation = this.animations[Math.floor(Math.random() * this.animations.length)]
+
+  openMic(event) {
+    if (this.util.NETWORK_AVAILABLE) {
+
+      this.micActive = 'outline';
+      this.voiceRecognition.listen()
+        .subscribe(
+          (matches: Array<string>) => {
+            this.util.alert(matches[0]);
+            this.micActive = '';
+          },
+          () => {
+            this.util.error('Não entendi. Por favor, fale novamente.');
+            this.micActive = '';
+          }
+        );
+
+      this.updateAnimations();
+      this.change = (this.change) ? false : true;
+      this.leftColor = this.leftColors[Math.floor(Math.random() * this.leftColors.length)];
+      this.rightColor = this.rightColors[Math.floor(Math.random() * this.rightColors.length)];
+      this.animation = this.animations[Math.floor(Math.random() * this.animations.length)]
+    }
   }
-
-
 
 }

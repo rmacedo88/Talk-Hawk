@@ -1,4 +1,3 @@
-import { ShareResultsPage } from './../pages/share-results/share-results';
 import { of } from 'rxjs/observable/of';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
@@ -23,7 +22,7 @@ export class MyApp {
     platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    private auth: AuthProvider
+    private auth: AuthProvider,
   ) {
 
     // Checa se o usuário fez login
@@ -33,12 +32,13 @@ export class MyApp {
         (auth) ? this.nav.setRoot(HomePage, {}, { animate: false }) : this.nav.setRoot(LoginPage, {}, { animate: false });
       });
 
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
+    platform.ready()
+      .then(() => {
+        // Okay, so the platform is ready and our plugins are available.
+        // Here you can do any higher level native things you might need.
+        statusBar.styleDefault();
+        splashScreen.hide();
+      });
   }
 }
 

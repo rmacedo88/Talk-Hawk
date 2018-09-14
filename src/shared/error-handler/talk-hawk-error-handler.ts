@@ -30,6 +30,9 @@ export class TalkHawkErrorHandler extends ErrorHandler {
    */
   handleError(error: any): void {
 
+
+    // error = error.replace('Error: Uncaught (in promise): Error: ', '');
+    // console.log(JSON.stringify(error));
     // [Mostra o erro na forma de um toast]
     this.toastProvider
       .create({
@@ -43,7 +46,7 @@ export class TalkHawkErrorHandler extends ErrorHandler {
       .present();
 
     // [Trata o erro da maneira padrão (exibindo no console de erros)]
-    // super.handleError(error);
+    super.handleError(error);
   }
 
 }

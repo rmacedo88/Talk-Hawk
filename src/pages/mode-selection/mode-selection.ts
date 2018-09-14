@@ -1,23 +1,9 @@
-import { concat } from 'rxjs/operators/concat';
-import { merge } from 'rxjs/operators/merge';
-import { interval } from 'rxjs/observable/interval';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { timer } from 'rxjs/observable/timer';
+import { UtilsProvider } from './../../providers/utils/utils';
 import { ChooseExamLevelPage } from './../choose-exam-level/choose-exam-level';
 import { CareerModePage } from './../career-mode/career-mode';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Navbar } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { take } from 'rxjs/operators/take';
-import { map } from 'rxjs/operators/map';
 
-/**
- * Generated class for the ModeSelectionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -34,7 +20,10 @@ export class ModeSelectionPage {
     { iconName: 'vocabulary', label: 'Vocabulário' },
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private util: UtilsProvider) {
 
   }
 
@@ -49,31 +38,27 @@ export class ModeSelectionPage {
   }
 
   goToDesiredLevel($event) {
-    switch ($event) {
 
-      case 'exam':
-        this.navCtrl.push(ChooseExamLevelPage, {}, { animate: false });
-        break;
+    if (this.util.NETWORK_AVAILABLE) {
+      switch ($event) {
 
-      case 'career':
-        this.navCtrl.push(CareerModePage, {}, { animate: false });
-        break;
+        case 'exam':
+          this.navCtrl.push(ChooseExamLevelPage, {}, { animate: false });
+          break;
 
-      case 'vocabulary':
-        this.navCtrl.push(CareerModePage, {}, { animate: false });
-        break;
+        case 'career':
+          this.navCtrl.push(CareerModePage, {}, { animate: false });
+          break;
 
-      default:
-        break;
+        case 'vocabulary':
+          this.navCtrl.push(CareerModePage, {}, { animate: false });
+          break;
+
+        default:
+          break;
+      }
     }
+
   }
-
-  // goToChooseExam() {
-  //   this.navCtrl.push(ChooseExamLevelPage, {}, { animate: false });
-  // }
-
-  // goToCareerMode() {
-  //   this.navCtrl.push(CareerModePage, {}, { animate: false });
-  // }
 
 }
