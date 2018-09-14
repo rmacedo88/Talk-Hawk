@@ -10,6 +10,7 @@ export class AuthProvider {
 
   public user: any;
 
+  public _ID_TOKEN: string;
 
   toastTemplate: {
     duration: 3000,
@@ -45,6 +46,13 @@ export class AuthProvider {
           (user) ? __buildUser() : null;
 
         });
+
+        
+    // Recupera o ID_TOKEN
+    this.afAuth.idToken.subscribe(idToken => {
+      this._ID_TOKEN = idToken;
+    });
+
   }
 
 

@@ -31,7 +31,7 @@ export class ChooseExamLevelPage {
     // [Recupera o texto 'easy' ou  'hard', fornecido pelo array actions]
     const desiredLevel = $event.split('-')[0];
 
-    this.navCtrl.setRoot(ExamModePage, {
+    this.navCtrl.push(ExamModePage, {
       level: desiredLevel
     });
   }

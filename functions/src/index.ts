@@ -4,8 +4,9 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import * as cors from 'cors';
 
-import * as questionsPopulate from './questions/database.populate.questions';
-import * as questions from './questions/list';
+import * as questionsPopulate from './exam-mode/database.populate.questions';
+import * as questions from './exam-mode/list';
+import * as careerPopulate from './career-mode/database.populate.career';
 
 
 // Cria uma instância do Middleware Express
@@ -30,38 +31,38 @@ const db = admin.firestore();
  */
 export const authenticate = ((req, res, next) => {
 
-  // Valida se a requisição possui o atributo 'authorization' no cabeçalho e se este contém um token Bearer.
-  if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
-    res.status(403)
-      .send(`Acesso não autorizado. Você deve acrescentar o cabeçalho HTTP a seguir:
+    // Valida se a requisição possui o atributo 'authorization' no cabeçalho e se este contém um token Bearer.
+    if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
+        res.status(403)
+            .send(`Acesso não autorizado. Você deve acrescentar o cabeçalho HTTP a seguir:
       Authorization: Bearer <Firebase ID Token>`);
-    return;
-  }
+        return;
+    }
 
-  // Recupera o valor do token fornecido no cabeçalho HTTP
-  const firebaseAuthToken = req.headers.authorization.split('Bearer ')[1];
+    // Recupera o valor do token fornecido no cabeçalho HTTP
+    const firebaseAuthToken = req.headers.authorization.split('Bearer ')[1];
 
-  // Chama uma promise do firebase cuja função é verificar o token gerado pela autenticação no Firebase
-  admin.auth().verifyIdToken(firebaseAuthToken)
-    .then((decodedFirebaseToken) => {
-      req.user = decodedFirebaseToken;
-      return next();
-    })
-    .catch(() => {
-      console.error('Erro ao validar o token de acesso do usuário');
-      res.status(403)
-        .send('Token inválido');
-    });
+    // Chama uma promise do firebase cuja função é verificar o token gerado pela autenticação no Firebase
+    admin.auth().verifyIdToken(firebaseAuthToken)
+        .then((decodedFirebaseToken) => {
+            req.user = decodedFirebaseToken;
+            return next();
+        })
+        .catch(() => {
+            console.error('Erro ao validar o token de acesso do usuário');
+            res.status(403)
+                .send('Token inválido');
+        });
 
 });
 
 
-// Configura o método de autenticação padrão para as requisições à api
-// app.use(authenticate);
-
 // Habilita o uso do Cross-Origin Resource Sharing (CORS)
 app.use(cors({ origin: true }));
 
+
+// Configura o método de autenticação padrão para as requisições à api
+app.use(authenticate);
 
 
 // ============================================================================
@@ -78,10 +79,44 @@ app.use(cors({ origin: true }));
  * Está comentado por razões de segurança.
  */
 app.put('/populateQuestionsCollection', (req, res) => {
-  questionsPopulate.populateQuestionsCollection(db, req, res);
-  // res.status(401).send('Você não tem autorização para chamar esse método.');
+    questionsPopulate.populateQuestionsCollection(db, req, res);
+    // res.status(401).send('Você não tem autorização para chamar esse método.');
 });
 
+app.put('/populate', (req, res) => {
+    careerPopulate.populateCareerQuestionsCollection(db, req, res);
+    // res.status(401).send('Você não tem autorização para chamar esse método.');
+});
+
+
+app.get('/career/answer/list', (req, res) => {
+    db.collection('career-questions')
+        .where('active', '==', true)
+        .orderBy('created', 'desc')
+        .get()
+        .then(snapshotData => {
+
+            // tslint:disable-next-line:no-shadowed-variable
+            const questions: Array<any> = [];
+
+            if (!snapshotData.empty) {
+                snapshotData.forEach(doc => {
+                    questions.push({ uid: doc.ref.id, ...doc.data() });
+                });
+
+                res.send(JSON.stringify(questions));
+
+            } else {
+                res.status(400)
+                    .send('Não há questões cadastradas');
+            }
+
+        }).catch(error => {
+            console.log(error);
+            res.status(500)
+                .send('Não foi possível ler');
+        })
+});
 
 // ============================================================================
 // Recupera a lista de questões fáceis e difíceis
@@ -93,25 +128,8 @@ app.put('/populateQuestionsCollection', (req, res) => {
  */
 app.get('/questions/list/:questionType', (req, res) => {
 
-  // const obrigatorio = () => { throw new Error('Parâmetro Obrigatório') };
-  // const add = (a: number = obrigatorio(), b: number = obrigatorio()) => a + b;
-  // add(1);
+    questions.list(db, res, { questionLevel: req.params.questionType })
 
-  // [Lê o valor do parâmetro de requisição definido na rota do método :questionType, são aceitos os valores 'easy' e 'hard']
-  switch (req.params.questionType) {
-    case 'easy':
-      // [Retorna a lista de questões fáceis]
-      questions.list(db, req, res, { questionLevel: 'easy' });
-      break;
-    case 'hard':
-      // [Retorna a lista de questões difíceis]
-      questions.list(db, req, res, { questionLevel: 'hard' });
-      break;
-    default:
-      res.status(400)
-        .send('Acrescente "/easy" ou "/hard" ao endpoint para concluir sua solicitação.');
-      break;
-  }
 });
 
 
@@ -132,83 +150,83 @@ app.get('/questions/list/:questionType', (req, res) => {
  */
 app.post('/questions/response/:questionType', (req, res) => {
 
-  // [Valida os parâmetros de entrada]
-  const _USER = (req.body.userUID) ? req.body.userUID : res.status(400).send('Usuário não informado');
-  const _QUESTION = (req.body.questionUID) ? req.body.questionUID : res.status(400).send('Questão não informada');
-  const _RESP = (req.body.response) ? req.body.response : res.status(400).send('Resposta do usuário não informada');
+    // [Valida os parâmetros de entrada]
+    const _USER_UID = (req.body.userUID) ? req.body.userUID : res.status(400).send('Usuário não informado');
+    const _QUESTION_UID = (req.body.questionUID) ? req.body.questionUID : res.status(400).send('Questão não informada');
+    const _USER_RESPONSE = (req.body.response) ? req.body.response : res.status(400).send('Resposta do usuário não informada');
 
-  let responseObject: any;
+    let responseObject: any;
 
-  // [Acessa a coleção de questões e recupera uma questão específica a partir do ID]
-  db.collection('questions')
-    .doc(_QUESTION)
-    .get()
-    .then(questionData => {
+    // [Acessa a coleção de questões e recupera uma questão específica a partir do ID]
+    db.collection('questions')
+        .doc(_QUESTION_UID)
+        .get()
+        .then(questionData => {
 
-      // [Checa se esse id de questão é válido]
-      if (questionData.exists) {
+            // [Checa se esse id de questão é válido]
+            if (questionData.exists) {
 
-        // [Arrow Function que determina se a questão foi respondida corretamente ou não. O retorno é booleano]
-        const isQuestionRight = () => (_RESP === questionData.data().response);
+                // [Arrow Function que determina se a questão foi respondida corretamente ou não. O retorno é booleano]
+                const isQuestionRight = () => (_USER_RESPONSE === questionData.data().response);
 
-        // [Registra a resposta do usuário na collection 'user-question-answer']
-        db.collection('user-question-answer')
-          .add({
-            userUID: _USER,
-            questionUID: questionData.ref.id,
-            examLevel: questionData.data().level,
-            // Se a questão estiver correta, atribui os pontos, caso contrário, atribui ZERO
-            pointsEarned: (isQuestionRight()) ? questionData.data().points : 0,
-            isRight: isQuestionRight(),
-            timestamp: new Date()
-          });
+                // [Registra a resposta do usuário na collection 'user-question-answer']
+                db.collection('user-question-answer')
+                    .add({
+                        userUID: _USER_UID,
+                        questionUID: questionData.ref.id,
+                        examLevel: questionData.data().level,
+                        // Se a questão estiver correta, atribui os pontos, caso contrário, atribui ZERO
+                        pointsEarned: (isQuestionRight()) ? questionData.data().points : 0,
+                        isRight: isQuestionRight(),
+                        timestamp: new Date()
+                    });
 
-        if (isQuestionRight()) {
+                if (isQuestionRight()) {
 
-          // [Atualiza a conta do usuário com seus pontos ganhos]
-          db.collection('users')
-            .doc(_USER)
-            .get()
-            .then(userData => {
+                    // [Atualiza a conta do usuário com seus pontos ganhos]
+                    db.collection('users')
+                        .doc(_USER_UID)
+                        .get()
+                        .then(userData => {
 
-              if (questionData.data().level === 'easy') {
-                userData.ref.update({
-                  easyExamPoints: ((userData.data().easyExamPoints || 0) + questionData.data().points),
-                  lastUpdate: new Date()
-                });
-              }
+                            if (questionData.data().level === 'easy') {
+                                userData.ref.update({
+                                    easyExamPoints: ((userData.data().easyExamPoints || 0) + questionData.data().points),
+                                    lastUpdate: new Date()
+                                });
+                            }
 
-              if (questionData.data().level === 'hard') {
-                userData.ref.update({
-                  hardExamPoints: ((userData.data().hardExamPoints || 0) + questionData.data().points),
-                  lastUpdate: new Date()
-                });
-              }
+                            if (questionData.data().level === 'hard') {
+                                userData.ref.update({
+                                    hardExamPoints: ((userData.data().hardExamPoints || 0) + questionData.data().points),
+                                    lastUpdate: new Date()
+                                });
+                            }
 
-            })
-            .catch(err => console.log('DEGUB: Erro ao atualizar usuário', err));
-        }
+                        })
+                        .catch(err => console.log('DEGUB: Erro ao atualizar usuário', err));
+                }
 
-        // [Adiciona os dados de retorno ao objeto enviado para o usuário]
-        responseObject = {
-          isCorrect: isQuestionRight(),
-          points: (isQuestionRight()) ? questionData.data().points : 0
-        };
+                // [Adiciona os dados de retorno ao objeto enviado para o usuário]
+                responseObject = {
+                    isCorrect: isQuestionRight(),
+                    points: (isQuestionRight()) ? questionData.data().points : 0
+                };
 
-        // [Envia a resposta para o usuário]
-        res.send(responseObject);
+                // [Envia a resposta para o usuário]
+                res.send(responseObject);
 
-      } else {
-        // [Se a 'query' não retornou dados, devolve um erro para o usuário]
-        res.send({ error: 'O id informado não corresponde a uma questão válida.' });
-      }
+            } else {
+                // [Se a 'query' não retornou dados, devolve um erro para o usuário]
+                res.status(300)
+                    .send({ error: 'O id informado não corresponde a uma questão válida.' });
+            }
 
-    })
-    .catch(err => {
-      console.log(err);
-      // [Retorna um erro de ambiente]
-      res.send(err);
-    });
+        })
+        .catch(err => {
+            // [Retorna um erro de ambiente]
+            res.send(err);
+        });
 
 });
 

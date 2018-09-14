@@ -2,8 +2,8 @@ import { UtilsProvider } from './../../providers/utils/utils';
 import { take } from 'rxjs/operators/take';
 import { AuthProvider } from './../../providers/auth/auth';
 import { TalkHawkApiProvider } from './../../providers/talk-hawk-api/talk-hawk-api';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Navbar, AlertController } from 'ionic-angular';
 import { timer } from 'rxjs/observable/timer';
 import { ShareResultsPage } from '../share-results/share-results';
 
@@ -13,6 +13,8 @@ import { ShareResultsPage } from '../share-results/share-results';
   templateUrl: 'exam-mode.html',
 })
 export class ExamModePage {
+
+  @ViewChild(Navbar) navBar: Navbar;
 
   // Nível de dificuldade escolhido
   examLevel: string;
@@ -38,7 +40,8 @@ export class ExamModePage {
     public navParams: NavParams,
     private talkHawkApi: TalkHawkApiProvider,
     private auth: AuthProvider,
-    private util: UtilsProvider
+    private util: UtilsProvider,
+    private alert: AlertController
   ) {
     // [Recupera a dificuldade escolhida pelo usuário]
     this.examLevel = this.navParams.get('level');
@@ -51,6 +54,26 @@ export class ExamModePage {
    */
   async ionViewDidLoad() {
     try {
+      // Mostra um alerta ao preccionar o botão voltar
+      this.navBar.backButtonClick = (e: UIEvent) => {
+        this.alert.create({
+          title: 'Cuidado!',
+          message: 'Seu progresso será perdido, tem certeza que deseja sair?',
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel'
+            },
+            {
+              text: 'Sim',
+              handler: () => {
+                this.navCtrl.pop({ animate: false });
+              }
+            }
+          ]
+        }).present();
+      }
+
       // [Invoca a API talk hawk e obtém todas as quest!oes de um determinado nível (Fácil ou Difícil)]
       this._questionsRawData = await this.talkHawkApi.get(`/questions/list/${this.examLevel}`);
       // [Determina o total de questões a serem respondidas]
@@ -61,7 +84,7 @@ export class ExamModePage {
     } catch (error) {
       console.log(error);
     }
-    // this.talkHawkApi.put(`/populateQuestionsCollection`)
+    // this.talkHawkApi.put(`/populate`)
     //   .then(test => console.log(test))
     //   .catch(err => console.log(err));
   }

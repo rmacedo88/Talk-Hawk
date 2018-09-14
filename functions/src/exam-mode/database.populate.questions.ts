@@ -12,7 +12,7 @@
  */
 export const populateQuestionsCollection = ((db, req, res) => {
 
-  const easyQuestionsRawData: Array<any> = [
+  const questionsRawData: Array<any> = [
     // [EASY questions array]
     { level: 'easy', points: 1, active: true, index: 1, text: 'O que significa "meaning" em inglês?', response: 'd', options: ['Origem', 'Cercado', 'Comida', 'Significado'] },
     { level: 'easy', points: 1, active: true, index: 2, text: 'Como dizer que está apaixonado(a) em inglês?', response: 'a', options: ['I fall in love', 'I love her', 'I like her', 'I want and love her'] },
@@ -38,11 +38,11 @@ export const populateQuestionsCollection = ((db, req, res) => {
   ];
 
   // Referência para a coleção 'question'
-  const easyQuestionsRef = db.collection('questions');
+  const questionsRef = db.collection('questions');
 
   // [INICIO começa a inserir os registros no banco de dados]
-  easyQuestionsRawData.forEach(question => {
-    easyQuestionsRef.add(question);
+  questionsRawData.forEach(question => {
+    questionsRef.add(question);
   });
   // [FIM conclui a inserção dos registros]
 

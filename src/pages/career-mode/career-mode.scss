@@ -49,6 +49,12 @@ page-career-mode {
     @extend .fast;
   }
 
+  .option-selected {
+    background-color: #4a148c !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+      0 6px 6px rgba(0, 0, 0, 0.23) !important;
+  }
+
   section {
 
     h1,

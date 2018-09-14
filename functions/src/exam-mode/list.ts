@@ -7,11 +7,10 @@
 /**
  * Acessa o Google Cloud Firestore para listar as questões
  * @param db ref. banco de dados
- * @param req http request
  * @param res http response
  * @param params é um objeto que possui o atributo 'questionLevel'. Seu valor pode conter as strings 'easy' ou 'hard'.
  */
-export const list = ((db, req, res, params) => {
+export const list = ((db, res, params) => {
 
   db.collection('questions')
     // Funciona como uma cláusura where de um banco relacional, retorna os registros que possuam o atributo 'level' cujo valor seja igual a 'params.questionLevel'
@@ -43,6 +42,7 @@ export const list = ((db, req, res, params) => {
       }
     })
     .catch(error => {
+      console.log(error);
       res.status(500)
         .send('Não foi possível recuperar as questões do servidor ' + error);
     });

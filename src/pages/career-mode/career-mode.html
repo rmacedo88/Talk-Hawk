@@ -9,14 +9,14 @@
 
   <section>
 
-    <h1 [attr.class]="titleAnswer">Qual dessas cores você prefere?</h1>
+    <h1 [attr.class]="titleAnswer">{{currentQuestionObject?.text}}</h1>
 
     <div>
       <span [attr.class]="leftResponse">
-        {{leftColor?.text}}
+        {{currentQuestionObject?.leftSide}}
       </span>
       <span [attr.class]="rightResponse">
-        {{rightColor?.text}}
+        {{currentQuestionObject?.rightSide}}
       </span>
     </div>
 

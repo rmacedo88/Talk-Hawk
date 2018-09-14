@@ -45,3 +45,9 @@ functions/lib/questions/easy.js.map
 functions/lib/questions/hard.js.map
 functions/lib/questions/list.js
 functions/lib/questions/list.js.map
+functions/lib/exam-mode/database.populate.questions.js
+functions/lib/career-mode/database.populate.career.js
+functions/lib/career-mode/database.populate.career.js.map
+functions/lib/exam-mode/database.populate.questions.js.map
+functions/lib/exam-mode/list.js
+functions/lib/exam-mode/list.js.map
