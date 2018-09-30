@@ -1,5 +1,5 @@
-import { IonicModule } from 'ionic-angular';
 import { NgModule } from '@angular/core';
+import { IonicModule } from 'ionic-angular';
 import { CtaComponent } from './cta/cta';
 
 const COMPONENTS = [

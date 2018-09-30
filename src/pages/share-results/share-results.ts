@@ -23,7 +23,7 @@ export class ShareResultsPage {
     this.data = this.navParams.get('data');
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     switch (this.origin) {
       case 'exam-mode':
         this.sharedContent = `Parabéns! O usuário ${this.data.userName} fez ${this.data.points}

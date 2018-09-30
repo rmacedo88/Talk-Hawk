@@ -20,7 +20,7 @@ export class ChooseExamLevelPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.navBar.backButtonClick = (e: UIEvent) => {
       this.navCtrl.pop({ animate: false });
     }

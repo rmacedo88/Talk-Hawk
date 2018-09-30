@@ -1,3 +1,4 @@
+import { VocabularyModePage } from './../vocabulary-mode/vocabulary-mode';
 import { UtilsProvider } from './../../providers/utils/utils';
 import { ChooseExamLevelPage } from './../choose-exam-level/choose-exam-level';
 import { CareerModePage } from './../career-mode/career-mode';
@@ -27,14 +28,10 @@ export class ModeSelectionPage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.navBar.backButtonClick = (e: UIEvent) => {
       this.navCtrl.pop({ animate: false });
     }
-  }
-
-  ionViewDidEnter() {
-
   }
 
   goToDesiredLevel($event) {
@@ -51,7 +48,7 @@ export class ModeSelectionPage {
           break;
 
         case 'vocabulary':
-          this.navCtrl.push(CareerModePage, {}, { animate: false });
+          this.navCtrl.push(VocabularyModePage, {}, { animate: false });
           break;
 
         default:

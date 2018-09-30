@@ -1,6 +1,6 @@
-import { ToastController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { Network } from '@ionic-native/network';
+import { ToastController } from 'ionic-angular';
 
 @Injectable()
 export class UtilsProvider {

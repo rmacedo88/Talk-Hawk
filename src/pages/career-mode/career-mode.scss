@@ -4,14 +4,13 @@ page-career-mode {
   .first-answer-animation-enter {
     @extend .animated;
     @extend .fadeInLeftBig;
-    @extend .delay-0-8s;
+    @extend .delay-0-4s;
     @extend .fast;
   }
 
   .second-answer-animation-enter {
     @extend .animated;
     @extend .fadeInRightBig;
-    @extend .delay-0-4s;
     @extend .fast;
   }
 
@@ -30,26 +29,25 @@ page-career-mode {
   .answer-animation {
     @extend .animated;
     @extend .fadeInDownBig;
-    @extend .animated;
     @extend .fast;
   }
 
   .tip-animation {
     @extend .animated;
     @extend .fadeInUpBig;
-    @extend .animated;
     @extend .fast;
   }
 
   .mic-animation {
     @extend .animated;
     @extend .fadeInUpBig;
-    @extend .animated;
     @extend .delay-0-4s;
     @extend .fast;
   }
 
   .option-selected {
+    @extend .animated;
+    @extend .fadeIn;
     background-color: #4a148c !important;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
       0 6px 6px rgba(0, 0, 0, 0.23) !important;

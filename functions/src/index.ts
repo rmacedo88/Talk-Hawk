@@ -31,28 +31,28 @@ const db = admin.firestore();
  */
 export const authenticate = ((req, res, next) => {
 
-    // Valida se a requisição possui o atributo 'authorization' no cabeçalho e se este contém um token Bearer.
-    if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
-        res.status(403)
-            .send(`Acesso não autorizado. Você deve acrescentar o cabeçalho HTTP a seguir:
+  // Valida se a requisição possui o atributo 'authorization' no cabeçalho e se este contém um token Bearer.
+  if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
+    res.status(403)
+      .send(`Acesso não autorizado. Você deve acrescentar o cabeçalho HTTP a seguir:
       Authorization: Bearer <Firebase ID Token>`);
-        return;
-    }
+    return;
+  }
 
-    // Recupera o valor do token fornecido no cabeçalho HTTP
-    const firebaseAuthToken = req.headers.authorization.split('Bearer ')[1];
+  // Recupera o valor do token fornecido no cabeçalho HTTP
+  const firebaseAuthToken = req.headers.authorization.split('Bearer ')[1];
 
-    // Chama uma promise do firebase cuja função é verificar o token gerado pela autenticação no Firebase
-    admin.auth().verifyIdToken(firebaseAuthToken)
-        .then((decodedFirebaseToken) => {
-            req.user = decodedFirebaseToken;
-            return next();
-        })
-        .catch(() => {
-            console.error('Erro ao validar o token de acesso do usuário');
-            res.status(403)
-                .send('Token inválido');
-        });
+  // Chama uma promise do firebase cuja função é verificar o token gerado pela autenticação no Firebase
+  admin.auth().verifyIdToken(firebaseAuthToken)
+    .then((decodedFirebaseToken) => {
+      req.user = decodedFirebaseToken;
+      return next();
+    })
+    .catch(() => {
+      console.error('Erro ao validar o token de acesso do usuário');
+      res.status(403)
+        .send('Token inválido');
+    });
 
 });
 
@@ -79,44 +79,44 @@ app.use(authenticate);
  * Está comentado por razões de segurança.
  */
 app.put('/populateQuestionsCollection', (req, res) => {
-    questionsPopulate.populateQuestionsCollection(db, req, res);
-    // res.status(401).send('Você não tem autorização para chamar esse método.');
+  questionsPopulate.populateQuestionsCollection(db, req, res);
+  // res.status(401).send('Você não tem autorização para chamar esse método.');
 });
 
 app.put('/populate', (req, res) => {
-    careerPopulate.populateCareerQuestionsCollection(db, req, res);
-    // res.status(401).send('Você não tem autorização para chamar esse método.');
+  careerPopulate.populateCareerQuestionsCollection(db, req, res);
+  // res.status(401).send('Você não tem autorização para chamar esse método.');
 });
 
 
 app.get('/career/answer/list', (req, res) => {
-    db.collection('career-questions')
-        .where('active', '==', true)
-        .orderBy('created', 'desc')
-        .get()
-        .then(snapshotData => {
+  db.collection('career-questions')
+    .where('active', '==', true)
+    .orderBy('created', 'desc')
+    .get()
+    .then(snapshotData => {
 
-            // tslint:disable-next-line:no-shadowed-variable
-            const questions: Array<any> = [];
+      const _questions: Array<any> = [];
 
-            if (!snapshotData.empty) {
-                snapshotData.forEach(doc => {
-                    questions.push({ uid: doc.ref.id, ...doc.data() });
-                });
+      if (!snapshotData.empty) {
+        snapshotData.forEach(doc => {
+          _questions.push({ uid: doc.ref.id, ...doc.data() });
+        });
 
-                res.send(JSON.stringify(questions));
+        res.send(JSON.stringify(_questions));
 
-            } else {
-                res.status(400)
-                    .send('Não há questões cadastradas');
-            }
+      } else {
+        res.status(400)
+          .send('Não há questões cadastradas');
+      }
 
-        }).catch(error => {
-            console.log(error);
-            res.status(500)
-                .send('Não foi possível ler');
-        })
+    }).catch(error => {
+      console.log(error);
+      res.status(500)
+        .send('Não foi possível realizar a consulta');
+    })
 });
+
 
 // ============================================================================
 // Recupera a lista de questões fáceis e difíceis
@@ -128,7 +128,7 @@ app.get('/career/answer/list', (req, res) => {
  */
 app.get('/questions/list/:questionType', (req, res) => {
 
-    questions.list(db, res, { questionLevel: req.params.questionType })
+  questions.list(db, res, { questionLevel: req.params.questionType })
 
 });
 
@@ -150,86 +150,146 @@ app.get('/questions/list/:questionType', (req, res) => {
  */
 app.post('/questions/response/:questionType', (req, res) => {
 
-    // [Valida os parâmetros de entrada]
-    const _USER_UID = (req.body.userUID) ? req.body.userUID : res.status(400).send('Usuário não informado');
-    const _QUESTION_UID = (req.body.questionUID) ? req.body.questionUID : res.status(400).send('Questão não informada');
-    const _USER_RESPONSE = (req.body.response) ? req.body.response : res.status(400).send('Resposta do usuário não informada');
+  // [Valida os parâmetros de entrada]
+  const _USER_UID = (req.body.userUID) ? req.body.userUID : res.status(400).send('Usuário não informado');
+  const _QUESTION_UID = (req.body.questionUID) ? req.body.questionUID : res.status(400).send('Questão não informada');
+  const _USER_RESPONSE = (req.body.response) ? req.body.response : res.status(400).send('Resposta do usuário não informada');
 
-    let responseObject: any;
+  let responseObject: any;
 
-    // [Acessa a coleção de questões e recupera uma questão específica a partir do ID]
-    db.collection('questions')
-        .doc(_QUESTION_UID)
-        .get()
-        .then(questionData => {
+  // [Acessa a coleção de questões e recupera uma questão específica a partir do ID]
+  db.collection('questions')
+    .doc(_QUESTION_UID)
+    .get()
+    .then(questionData => {
 
-            // [Checa se esse id de questão é válido]
-            if (questionData.exists) {
+      // [Checa se esse id de questão é válido]
+      if (questionData.exists) {
 
-                // [Arrow Function que determina se a questão foi respondida corretamente ou não. O retorno é booleano]
-                const isQuestionRight = () => (_USER_RESPONSE === questionData.data().response);
+        // [Arrow Function que determina se a questão foi respondida corretamente ou não. O retorno é booleano]
+        const isQuestionRight = () => (_USER_RESPONSE === questionData.data().response);
 
-                // [Registra a resposta do usuário na collection 'user-question-answer']
-                db.collection('user-question-answer')
-                    .add({
-                        userUID: _USER_UID,
-                        questionUID: questionData.ref.id,
-                        examLevel: questionData.data().level,
-                        // Se a questão estiver correta, atribui os pontos, caso contrário, atribui ZERO
-                        pointsEarned: (isQuestionRight()) ? questionData.data().points : 0,
-                        isRight: isQuestionRight(),
-                        timestamp: new Date()
-                    });
+        // [Registra a resposta do usuário na collection 'user-question-answer']
+        db.collection('user-question-answer')
+          .add({
+            userUID: _USER_UID,
+            questionUID: questionData.ref.id,
+            examLevel: questionData.data().level,
+            // Se a questão estiver correta, atribui os pontos, caso contrário, atribui ZERO
+            pointsEarned: (isQuestionRight()) ? questionData.data().points : 0,
+            isRight: isQuestionRight(),
+            timestamp: new Date()
+          });
 
-                if (isQuestionRight()) {
+        if (isQuestionRight()) {
 
-                    // [Atualiza a conta do usuário com seus pontos ganhos]
-                    db.collection('users')
-                        .doc(_USER_UID)
-                        .get()
-                        .then(userData => {
+          // [Atualiza a conta do usuário com seus pontos ganhos]
+          db.collection('users')
+            .doc(_USER_UID)
+            .get()
+            .then(userData => {
 
-                            if (questionData.data().level === 'easy') {
-                                userData.ref.update({
-                                    easyExamPoints: ((userData.data().easyExamPoints || 0) + questionData.data().points),
-                                    lastUpdate: new Date()
-                                });
-                            }
+              if (questionData.data().level === 'easy') {
+                userData.ref.update({
+                  easyExamPoints: ((userData.data().easyExamPoints || 0) + questionData.data().points),
+                  lastUpdate: new Date()
+                });
+              }
 
-                            if (questionData.data().level === 'hard') {
-                                userData.ref.update({
-                                    hardExamPoints: ((userData.data().hardExamPoints || 0) + questionData.data().points),
-                                    lastUpdate: new Date()
-                                });
-                            }
+              if (questionData.data().level === 'hard') {
+                userData.ref.update({
+                  hardExamPoints: ((userData.data().hardExamPoints || 0) + questionData.data().points),
+                  lastUpdate: new Date()
+                });
+              }
 
-                        })
-                        .catch(err => console.log('DEGUB: Erro ao atualizar usuário', err));
-                }
+            })
+            .catch(err => console.log('DEGUB: Erro ao atualizar usuário', err));
+        }
 
-                // [Adiciona os dados de retorno ao objeto enviado para o usuário]
-                responseObject = {
-                    isCorrect: isQuestionRight(),
-                    points: (isQuestionRight()) ? questionData.data().points : 0
-                };
+        // [Adiciona os dados de retorno ao objeto enviado para o usuário]
+        responseObject = {
+          isCorrect: isQuestionRight(),
+          points: (isQuestionRight()) ? questionData.data().points : 0
+        };
 
-                // [Envia a resposta para o usuário]
-                res.send(responseObject);
+        // [Envia a resposta para o usuário]
+        res.send(responseObject);
 
-            } else {
-                // [Se a 'query' não retornou dados, devolve um erro para o usuário]
-                res.status(300)
-                    .send({ error: 'O id informado não corresponde a uma questão válida.' });
-            }
+      } else {
+        // [Se a 'query' não retornou dados, devolve um erro para o usuário]
+        res.status(300)
+          .send({ error: 'O id informado não corresponde a uma questão válida.' });
+      }
 
-        })
-        .catch(err => {
-            // [Retorna um erro de ambiente]
-            res.send(err);
-        });
+    })
+    .catch(err => {
+      // [Retorna um erro de ambiente]
+      res.send(err);
+    });
 
 });
 
+
+app.post('/career/questions/response', (req, res) => {
+  // [Valida os parâmetros de entrada]
+  const _USER_UID = (req.body.userUID) ? req.body.userUID : res.status(400).send('Usuário não informado');
+  const _USER_RESPONSES = (req.body.responses) ? req.body.responses : res.status(400).send('Respostas do usuário não informadas');
+
+  let responseObject: { title: string, description: string } = { title: '', description: '' };
+
+  if (_USER_RESPONSES.left > 3) {
+    responseObject = {
+      title: 'AMBITIOUS',
+      description: 'You are a person who never gives up on your dreams and who is always looking to conquer everything you want. It is someone who is extremely focused on his goals.'
+    };
+  }
+
+  if (_USER_RESPONSES.right > 3) {
+    responseObject = {
+      title: 'EASYGOING',
+      description: 'You are a person who has a lot of desire to turn your dreams into reality, but prefers to enjoy life is to let things happen naturally.'
+    };
+  }
+
+  if (_USER_RESPONSES.left === 3 && _USER_RESPONSES.right === 3) {
+    responseObject = {
+      title: 'DIVIDED',
+      description: 'You are a person who lives life one day at a time, your feelings may change according to the events and this can affect your personal and professional evolution.'
+    };
+  }
+
+  // [Acessa os dados do usuário]
+  db.collection('users')
+    .doc(_USER_UID)
+    .get()
+    .then(userData => {
+
+      // [Atualiza a personalidade do usuário]
+      userData.ref.update({
+        personality: responseObject.title,
+        lastUpdate: new Date()
+      });
+
+      // [Grava o desempenho do usuário nessa partida do modo carreira]
+      db.collection('career-question-answer')
+        .add({
+          userUID: _USER_UID,
+          userName: userData.data().name,
+          title: responseObject.title,
+          description: responseObject.description,
+          leftAnswers: _USER_RESPONSES.left,
+          rightAnswers: _USER_RESPONSES.right,
+          timestamp: new Date()
+        });
+
+    })
+    .catch(err => console.log('DEGUB: Erro ao recuperar o usuário', err));
+
+  // [Retorna ]
+  res.send(responseObject);
+
+});
 
 /**
  * Exporta a API tendo o url base : https://us-central1-tawk-hawk-dev.cloudfunctions.net/talkhawk

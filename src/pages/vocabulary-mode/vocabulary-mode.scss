@@ -1,0 +1,115 @@
+page-vocabulary-mode {
+  section {
+
+    ion-grid {
+      min-width: 85vw !important;
+    }
+
+    ion-col {
+      @extend .card-content-animation;
+      // background-color: #0288d1 !important;
+      border: 1px fff solid !important;
+
+      img {
+        $img-size: 100%;
+        position: relative;
+        margin-top: .5vh !important;
+        margin: 0 auto;
+        display: block;
+        width: $img-size;
+        height: $img-size;
+      }
+
+      div {
+        border: 2px solid #fff;
+        text-align: center;
+        width: 50%;
+        border-radius: 30px;
+        background-color: #1565c0;
+        color: #fff;
+      }
+
+      // max-width: 50% !important;
+      // max-height: 30% !important;
+    }
+
+    // img {
+    //   $img-size: 100%;
+    //   position: relative;
+    //   margin-top: .5vh !important;
+    //   margin: 0 auto;
+    //   display: block;
+    //   width: $img-size;
+    //   height: $img-size;
+    // }
+
+    // div {
+    //   border: 2px solid #fff;
+    //    width: 85vw;
+    //   vertical-align: middle;
+
+    //   div {
+    //     $border-radius-top: 20%;
+    //     $border-radius-bottom: 50%;
+    //     @extend .card-content-animation;
+    //     border-top-left-radius: $border-radius-top;
+    //     border-top-right-radius: $border-radius-top;
+    //     border-bottom-left-radius: $border-radius-bottom;
+    //     border-bottom-right-radius: $border-radius-bottom;
+    //     $size: 20vh;
+    //     border: .6em white solid;
+    //     line-height: $size;
+    //     height: $size;
+    //     width: $size;
+    //     margin: 3vh;
+
+    //     img {
+    //       $img-size: 85%;
+    //       position: relative;
+    //       margin-top: .5vh !important;
+    //       margin: 0 auto;
+    //       display: block;
+    //       width: $img-size;
+    //       height: $img-size;
+    //     }
+
+    //   }
+
+    // p {
+    //   border: 1px solid blue;
+    //   text-align: center;
+    //    top: -10vh !important;
+    //   color: rgba($color: #fff, $alpha: .8);
+    // }
+    // }
+
+    // div:nth-child(1) {}
+
+    // div:nth-child(2) {
+    // right: -3em !important;
+    // display: block;
+    // justify-content: right !important;
+    // align-items: flex-end !important;
+    // }
+
+    // div:nth-child(3) {}
+  }
+
+  .card-content-animation {
+    animation: swing-in-top-fwd .8s cubic-bezier(.39, .575, .565, 1.000) 1.2s both
+  }
+
+  @keyframes swing-in-top-fwd {
+    0% {
+      transform: rotateX(-100deg);
+      transform-origin: top;
+      opacity: 0
+    }
+
+    100% {
+      transform: rotateX(0deg);
+      transform-origin: top;
+      opacity: 1
+    }
+  }
+}

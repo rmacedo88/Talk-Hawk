@@ -1,27 +1,29 @@
-import { Network } from '@ionic-native/network';
-import { UtilsProvider } from './../providers/utils/utils';
-import { SpeechRecognition } from '@ionic-native/speech-recognition';
-import { VoiceRecognitionProvider } from './../providers/voice-recognition/voice-recognition';
-import { ShareContentProvider } from './../providers/share-content/share-content';
-import { SocialSharing } from '@ionic-native/social-sharing';
-import { ExamModePageModule } from './../pages/exam-mode/exam-mode.module';
-import { ChooseExamLevelPageModule } from './../pages/choose-exam-level/choose-exam-level.module';
-import { CareerModePageModule } from './../pages/career-mode/career-mode.module';
-import { ModeSelectionPageModule } from './../pages/mode-selection/mode-selection.module';
-import { HttpTokenInterceptor } from './../shared/interceptor/http-token.interceptor';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Nav, Keyboard } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { AuthProvider } from '../providers/auth/auth';
+import { Network } from '@ionic-native/network';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Keyboard, Nav } from 'ionic-angular';
 import { DirectivesModule } from '../directives/directives.module';
 import { LoginPageModule } from '../pages/login/login.module';
-import { TalkHawkApiProvider } from '../providers/talk-hawk-api/talk-hawk-api';
-import { LoadingProvider } from '../providers/loading/loading';
 import { ShareResultsPageModule } from '../pages/share-results/share-results.module';
-
+import { AuthProvider } from '../providers/auth/auth';
+import { LoadingProvider } from '../providers/loading/loading';
+import { TalkHawkApiProvider } from '../providers/talk-hawk-api/talk-hawk-api';
+import { CareerModePageModule } from './../pages/career-mode/career-mode.module';
+import { ChooseExamLevelPageModule } from './../pages/choose-exam-level/choose-exam-level.module';
+import { ExamModePageModule } from './../pages/exam-mode/exam-mode.module';
+import { ModeSelectionPageModule } from './../pages/mode-selection/mode-selection.module';
+import { VocabularyModePageModule } from './../pages/vocabulary-mode/vocabulary-mode.module';
+import { ShareContentProvider } from './../providers/share-content/share-content';
+import { TextSpeakProvider } from './../providers/text-speak/text-speak';
+import { UtilsProvider } from './../providers/utils/utils';
+import { VoiceRecognitionProvider } from './../providers/voice-recognition/voice-recognition';
+import { HttpTokenInterceptor } from './../shared/interceptor/http-token.interceptor';
 
 export const MODULES = [
   BrowserModule,
@@ -33,6 +35,7 @@ export const MODULES = [
   CareerModePageModule,
   ExamModePageModule,
   ShareResultsPageModule,
+  VocabularyModePageModule,
 
   DirectivesModule
 ];
@@ -47,6 +50,7 @@ export const PROVIDERS = [
   SocialSharing,
   SpeechRecognition,
   Network,
+  TextToSpeech,
 
 
   // FIRESTORE AUTH PROVIDER
@@ -60,6 +64,7 @@ export const PROVIDERS = [
   ShareContentProvider,
   VoiceRecognitionProvider,
   UtilsProvider,
+  TextSpeakProvider,
 
   // SERVICE WORKERS
 

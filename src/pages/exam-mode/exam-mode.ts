@@ -52,7 +52,7 @@ export class ExamModePage {
    * Recupera a lista de questões usando a api talk hawk.
    * Determina o número de questões para essa rodada e carrega os dados da primeira questão na tela.
    */
-  async ionViewDidLoad() {
+  async ionViewWillEnter() {
     try {
       // Mostra um alerta ao preccionar o botão voltar
       this.navBar.backButtonClick = (e: UIEvent) => {
