@@ -1,3 +1,4 @@
+import { PipesModule } from './../../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { VocabularyModePage } from './vocabulary-mode';
@@ -7,7 +8,8 @@ import { VocabularyModePage } from './vocabulary-mode';
     VocabularyModePage,
   ],
   imports: [
+    PipesModule,
     IonicPageModule.forChild(VocabularyModePage),
   ],
 })
-export class VocabularyModePageModule {}
+export class VocabularyModePageModule { }

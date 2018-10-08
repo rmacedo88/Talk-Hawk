@@ -7,31 +7,38 @@
 
   <h1>Modo Vocabulário</h1>
 
-  <section padding>
+  <section>
 
     <ion-grid>
-      <ion-row>
-        <ion-col col-6>
-          <img src="../../assets/icon/svg/cake.svg" alt="">
-          <div>Cake</div>
+      <ion-row align-items-center>
+        <ion-col col-6 align-self-center *ngIf="(firstVocabularyItem?.text)">>
+          <div tappable (click)="talkText(firstVocabularyItem?.text, 'first')">
+            <span [innerHTML]="firstVocabularyItem?.img | safe:'html'"></span>
+            <div>{{firstVocabularyItem?.text}}</div>
+          </div>
         </ion-col>
-        <ion-col col-6></ion-col>
+        <ion-col col-6 align-self-center></ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col col-6></ion-col>
-        <ion-col col-6>
-          <img src="../../assets/icon/svg/house.svg" alt="">
-          <div>House</div>
+      <ion-row align-items-center>
+        <ion-col col-6 align-self-center></ion-col>
+        <ion-col col-6 align-self-center *ngIf="(secondVocabularyItem?.text)">>
+          <div tappable (click)="talkText(secondVocabularyItem?.text, 'second')">
+            <span [innerHTML]="secondVocabularyItem?.img | safe:'html'"></span>
+            <div>{{secondVocabularyItem?.text}}</div>
+          </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col col-6>
-          <img src="../../assets/icon/svg/carrot.svg" alt="">
-          <div>Carrot</div>
+      <ion-row align-items-center *ngIf="(thirdVocabularyItem?.text)">
+        <ion-col col-6 align-self-center>
+          <div tappable (click)="talkText(thirdVocabularyItem?.text, 'third')">
+            <span [innerHTML]="thirdVocabularyItem?.img | safe:'html'"></span>
+            <div>{{thirdVocabularyItem?.text}}</div>
+          </div>
         </ion-col>
-        <ion-col col-6></ion-col>
+        <ion-col col-6 align-self-center></ion-col>
       </ion-row>
     </ion-grid>
+    <!-- {{ test[0] }} -->
 
     <!-- <div>
       <div tappable (click)="talkText('House')">

@@ -7,7 +7,7 @@ export class TextSpeakProvider {
   private options = {
     text: null,
     locale: 'en-US',
-    rate: 0.6
+    rate: 0.5
   };
 
   constructor(private tts: TextToSpeech) { }

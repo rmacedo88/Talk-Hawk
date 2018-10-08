@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import * as cors from 'cors';
+import * as compression from 'compression';
 
 import * as questionsPopulate from './exam-mode/database.populate.questions';
 import * as questions from './exam-mode/list';
@@ -63,6 +64,8 @@ app.use(cors({ origin: true }));
 
 // Configura o método de autenticação padrão para as requisições à api
 app.use(authenticate);
+
+app.use(compression());
 
 
 // ============================================================================
@@ -289,6 +292,55 @@ app.post('/career/questions/response', (req, res) => {
   // [Retorna ]
   res.send(responseObject);
 
+});
+
+
+app.post('/vocabulary', (req, res) => {
+
+  const _VOCABULARY_TEXT = (req.body.vocabularyItemName) ? req.body.vocabularyItemName : null;
+
+  const fisrt = db.collection('vocabulary')
+    .orderBy('text')
+    .limit(1);
+
+  const paginate = fisrt.get()
+    .then(snapshotData => {
+
+      const last = snapshotData.docs[snapshotData.docs.length - 1];
+
+      console.log('last data text', last.data().text);
+      console.log('param', _VOCABULARY_TEXT)
+
+      const next = db.collection('vocabulary')
+        .orderBy('text')
+        .startAfter(_VOCABULARY_TEXT || last.data().text)
+        .limit(1);
+
+      next.get().then(snap => {
+
+        let _question: any;
+
+        if (!snap.empty) {
+          snap.forEach(doc => {
+            _question = { uid: doc.ref.id, ...doc.data() };
+          });
+
+          // console.log('RESULTS', snap.docs.length);
+          res.send(JSON.stringify(_question));
+
+        } else {
+          res.status(400)
+            .send('Não há imagens cadastradas');
+        }
+
+      });
+
+
+    }).catch(error => {
+      console.log(error);
+      res.status(500)
+        .send('Não foi possível realizar a consulta');
+    })
 });
 
 /**

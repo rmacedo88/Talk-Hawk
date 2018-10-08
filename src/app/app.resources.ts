@@ -1,3 +1,4 @@
+import { PipesModule } from './../pipes/pipes.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { Network } from '@ionic-native/network';
@@ -37,7 +38,8 @@ export const MODULES = [
   ShareResultsPageModule,
   VocabularyModePageModule,
 
-  DirectivesModule
+  DirectivesModule,
+  PipesModule
 ];
 
 export const PROVIDERS = [

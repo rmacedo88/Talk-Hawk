@@ -1,4 +1,4 @@
-import { Directive, Renderer2, ElementRef, Input } from '@angular/core';
+import { Directive, Renderer2, ElementRef, Input, HostListener } from '@angular/core';
 
 /**
  * Generated class for the AsyncImgLoaderDirective directive.
@@ -35,6 +35,8 @@ export class AsyncImgLoaderDirective {
 
   ngAfterViewInit() {
 
+
+
     // if (!this.el.nativeElement.cached) {
     //   setTimeout(() => {
 
@@ -53,6 +55,12 @@ export class AsyncImgLoaderDirective {
 
     //   }, 50);
     // }
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClick(event: Event) {
+    console.log('TEST');
+    this.render.addClass(this.el.nativeElement, 'card-selection');
   }
 
   public getImageReference(code: string) {
