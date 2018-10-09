@@ -295,37 +295,58 @@ app.post('/career/questions/response', (req, res) => {
 });
 
 
-app.post('/vocabulary', (req, res) => {
 
+// ============================================================================
+// Recupera uma imagem do modo vocabulário por vez
+// ============================================================================
+/**
+ * Esse método aceita o endpoint a seguir
+ * /vocabulary : Vai retornar em formato JSON o texto referente à imagem e a imagem em gormato SVG.
+ *
+ * A primeira requisição não precisa enviar nada no body, a partir da segunda em diante o formato do body deve seguir esse formato:
+ *
+ * {
+ *   vocabularyItemName: nome do campo "text" do último resultado retornado. Isso serve como cursor pra consulta no firebase.
+ * }
+ *
+ * Para aumentar a performance dessa api, o número de imagens retornadas a cada chamada é limitada a uma única imagem.
+ * Se o body não for informado, a primeira imagem será retornada.
+ */
+app.post('/vocabulary', (req, res) => {
+  // [Valida o parâmetro enviado no body da requisição]
   const _VOCABULARY_TEXT = (req.body.vocabularyItemName) ? req.body.vocabularyItemName : null;
 
+  // [Recupera o primeiro registro da collection "vocabulary"]
   const fisrt = db.collection('vocabulary')
     .orderBy('text')
     .limit(1);
 
+  // [Executa a paginação de dados retornando um único registro por vez]
   const paginate = fisrt.get()
     .then(snapshotData => {
 
+      // [Retorna uma referência para o último registro retornado pela página de resultados anterior]
       const last = snapshotData.docs[snapshotData.docs.length - 1];
 
-      console.log('last data text', last.data().text);
-      console.log('param', _VOCABULARY_TEXT)
-
+      // [Retorna uma referência para a próxima página de resultados, tomando como base o texto recuperado do body como cursor]
       const next = db.collection('vocabulary')
         .orderBy('text')
         .startAfter(_VOCABULARY_TEXT || last.data().text)
         .limit(1);
 
+      // [Recupera a próxima página de resultados]
       next.get().then(snap => {
 
+        // [Objeto que conterá o JSON com a resposta retornada pelo firebase]
         let _question: any;
 
+        // [Popula o objeto _question com os dados recuperados do Firebase]
         if (!snap.empty) {
           snap.forEach(doc => {
             _question = { uid: doc.ref.id, ...doc.data() };
           });
 
-          // console.log('RESULTS', snap.docs.length);
+          // [Retorna o JSON contento o texto e a imagem em formato SVG]
           res.send(JSON.stringify(_question));
 
         } else {
