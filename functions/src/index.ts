@@ -356,7 +356,6 @@ app.post('/vocabulary', (req, res) => {
 
       });
 
-
     }).catch(error => {
       console.log(error);
       res.status(500)

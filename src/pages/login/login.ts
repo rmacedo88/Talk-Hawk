@@ -1,16 +1,6 @@
 import { AuthProvider } from './../../providers/auth/auth';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, App, Slides, Keyboard } from 'ionic-angular';
-import { HomePage } from '../home/home';
-import { of } from 'rxjs/observable/of';
-import { timer } from 'rxjs/observable/timer';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

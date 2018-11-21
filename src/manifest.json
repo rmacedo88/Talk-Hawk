@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "Talk Hawk App",
+  "short_name": "Tawk Hawk",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

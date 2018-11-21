@@ -11,8 +11,6 @@ import { TextSpeakProvider } from './../../providers/text-speak/text-speak';
 })
 export class VocabularyModePage {
 
-  test: any;
-
   lastVocabularyItem: string;
 
   firstVocabularyItem: any;
@@ -29,19 +27,27 @@ export class VocabularyModePage {
   }
 
   async ionViewWillEnter() {
-    // this.test = await this.talkHawkApi.post('/vocabulary');
 
+    this.firstVocabularyItem = await this.talkHawkApi.post('/vocabulary');
+
+    this.secondVocabularyItem = await this.talkHawkApi.post('/vocabulary', { vocabularyItemName: this.firstVocabularyItem.text });
+
+    this.thirdVocabularyItem = await this.talkHawkApi.post('/vocabulary', { vocabularyItemName: this.secondVocabularyItem.text });
+
+    // [Chama a api ]
     this.talkHawkApi.post('/vocabulary')
       .then(first => {
 
         this.firstVocabularyItem = first;
 
+        // [Chama a api pela segunda vez, enviando ]
         this.talkHawkApi.post('/vocabulary', {
           vocabularyItemName: this.firstVocabularyItem.text
         }).then(second => {
 
           this.secondVocabularyItem = second;
 
+          // []
           this.talkHawkApi.post('/vocabulary', {
             vocabularyItemName: this.secondVocabularyItem.text
           }).then(third => {
@@ -55,15 +61,19 @@ export class VocabularyModePage {
         });
       });
 
-    console.log(this.firstVocabularyItem, this.secondVocabularyItem, this.thirdVocabularyItem);
   }
 
+  /**
+   *
+   */
   public talkText = async (text, vocabularyItemPosition: string) => {
     this.speaker.talk(text);
 
+    // [timer é um Observable similar ao método setTimeout do javascript]
     timer(800)
-      .toPromise()
-      .then(async () => {
+      .toPromise() // [Convertendo em uma promise]
+      .then(async () => { // [É necessário declarar que a resolução da promise é asincrona para tratar as requisições http sincronas, como se fossem asincronas]
+
 
         switch (vocabularyItemPosition) {
           case 'first':
@@ -102,9 +112,6 @@ export class VocabularyModePage {
 
       });
 
-
-
-    // console.log(this.test);
 
   }
 
